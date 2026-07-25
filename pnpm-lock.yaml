@@ -1,1 +1,50 @@
-PLACEHOLDER
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .:
+    devDependencies:
+      '@eslint/js':
+        specifier: ^9.0.0
+        version: 9.39.5
+      '@vitest/coverage-v8':
+        specifier: ^2.0.0
+        version: 2.1.9(vitest@2.1.9)
+      eslint:
+        specifier: ^9.0.0
+        version: 9.39.5
+      eslint-config-prettier:
+        specifier: ^9.1.0
+        version: 9.1.2(eslint@9.39.5)
+      prettier:
+        specifier: ^3.3.0
+        version: 3.9.6
+      typescript:
+        specifier: ^5.5.0
+        version: 5.9.3
+      typescript-eslint:
+        specifier: ^8.0.0
+        version: 8.65.0(eslint@9.39.5)(typescript@5.9.3)
+      vitest:
+        specifier: ^2.0.0
+        version: 2.1.9
+
+  packages/shared:
+    devDependencies:
+      typescript:
+        specifier: ^5.5.0
+        version: 5.9.3
+
+packages:
+
+  '@ampproject/remapping@2.3.0':
+    resolution: {integrity: sha512-30iZtAPgz+LTIYoeivqYo853f02jBYSd5uGnGpkFV0M3xOt9aN73erkgYAmZU43x4VfqcnLxW9Kpg3R5LC4YYw==}
+    engines: {node: '>=6.0.0'}
+
+  '@babel/helper-string-parser@7.29.7':
+    resolution: {integrity: sha512-Pb5ijPrZ89GDH8223L4UP8i6QApWxs04RbPQJTeWDV0/keR2E36MeKnyr6LYmUUvqRRI+Iv87SuF1W6ErINzYw==}
+    engines: {node: '>=6.9.0'}
