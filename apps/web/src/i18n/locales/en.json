@@ -1,0 +1,46 @@
+{
+  "nav": {
+    "about": "About",
+    "skills": "Skills",
+    "projects": "Projects",
+    "resume": "Resume",
+    "contact": "Contact"
+  },
+  "hero": {
+    "greeting": "Hi, I'm",
+    "name": "Your Name",
+    "tagline": "Full-stack developer building modern web applications.",
+    "cta": "Get in touch"
+  },
+  "about": {
+    "title": "About Me",
+    "body": "Write a short bio here. Mention your background, interests, and what you're currently working on."
+  },
+  "skills": {
+    "title": "Skills"
+  },
+  "projects": {
+    "title": "Projects",
+    "viewRepo": "View repo"
+  },
+  "resume": {
+    "title": "Resume",
+    "download": "Download PDF"
+  },
+  "contact": {
+    "title": "Contact",
+    "name": "Name",
+    "email": "Email",
+    "message": "Message",
+    "send": "Send message",
+    "success": "Message sent!",
+    "error": "Failed to send. Please try again."
+  },
+  "footer": {
+    "copyright": "© {{year}} Your Name. All rights reserved."
+  },
+  "theme": {
+    "light": "Light mode",
+    "dark": "Dark mode"
+  }
+}

@@ -9,6 +9,14 @@ export default defineWorkspace([
       include: ["src/**/*.test.ts"],
     },
   },
-  // Phase 1 appends: apps/web (environment: "jsdom", RTL setup)
+  {
+    test: {
+      name: "web",
+      root: "./apps/web",
+      environment: "jsdom",
+      include: ["src/**/*.test.{ts,tsx}"],
+      setupFiles: ["./src/test/setup.ts"],
+    },
+  },
   // Phase 2 appends: apps/api (environment: "node", Supertest/Testcontainers)
 ]);
