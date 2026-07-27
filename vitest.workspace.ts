@@ -18,5 +18,5 @@ export default defineWorkspace([
       setupFiles: ["./src/test/setup.ts"],
     },
   },
-  // Phase 2 appends: apps/api (environment: "node", Supertest/Testcontainers)
+  "./apps/api/vitest.config.ts",
 ]);
