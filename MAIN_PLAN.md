@@ -60,7 +60,7 @@ Cloudflare Tunnel ingress maps subdomains straight to containers, so no separate
 Mark a phase `[x]` once you've reviewed and accepted it as done. I'll leave these unchecked until you tell me to check them off. Each phase has its own detailed plan in [`phases/`](phases/).
 
 - [ ] **Phase 0** - [Repo and tooling scaffolding](phases/phase-0/plan.md) ([spec](phases/phase-0/spec.md))
-- [ ] **Phase 1** - [Frontend SPA (`apps/web`)](phases/phase-1.md)
+- [ ] **Phase 1** - [Frontend SPA (`apps/web`)](phases/phase-1/plan.md) ([spec](phases/phase-1/spec.md))
 - [ ] **Phase 2** - [Backend API (`apps/api`)](phases/phase-2.md)
 - [ ] **Phase 3** - [Analytics (Umami)](phases/phase-3.md)
 - [ ] **Phase 4** - [Dockerization (`infra`)](phases/phase-4.md)
@@ -72,7 +72,7 @@ Mark a phase `[x]` once you've reviewed and accepted it as done. I'll leave thes
 Detailed, self-contained plans live in the [`phases/`](phases/) directory. This file stays a high-level overview; open a phase file for its goal, steps, deliverables, and task checklist.
 
 - [Phase 0 - Repo and tooling scaffolding](phases/phase-0/plan.md) — [technical spec](phases/phase-0/spec.md)
-- [Phase 1 - Frontend SPA (`apps/web`)](phases/phase-1.md)
+- [Phase 1 - Frontend SPA (`apps/web`)](phases/phase-1/plan.md) — [technical spec](phases/phase-1/spec.md)
 - [Phase 2 - Backend API (`apps/api`)](phases/phase-2.md)
 - [Phase 3 - Analytics (Umami)](phases/phase-3.md)
 - [Phase 4 - Dockerization (`infra`)](phases/phase-4.md)

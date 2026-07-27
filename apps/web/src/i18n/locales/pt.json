@@ -1,0 +1,46 @@
+{
+  "nav": {
+    "about": "Sobre",
+    "skills": "Competências",
+    "projects": "Projetos",
+    "resume": "Currículo",
+    "contact": "Contacto"
+  },
+  "hero": {
+    "greeting": "Olá, sou",
+    "name": "O Seu Nome",
+    "tagline": "Desenvolvedor full-stack a criar aplicações web modernas.",
+    "cta": "Entrar em contacto"
+  },
+  "about": {
+    "title": "Sobre Mim",
+    "body": "Escreva uma breve biografia aqui. Mencione a sua formação, interesses e o que está a fazer atualmente."
+  },
+  "skills": {
+    "title": "Competências"
+  },
+  "projects": {
+    "title": "Projetos",
+    "viewRepo": "Ver repositório"
+  },
+  "resume": {
+    "title": "Currículo",
+    "download": "Descarregar PDF"
+  },
+  "contact": {
+    "title": "Contacto",
+    "name": "Nome",
+    "email": "Email",
+    "message": "Mensagem",
+    "send": "Enviar mensagem",
+    "success": "Mensagem enviada!",
+    "error": "Falha ao enviar. Tente novamente."
+  },
+  "footer": {
+    "copyright": "© {{year}} O Seu Nome. Todos os direitos reservados."
+  },
+  "theme": {
+    "light": "Modo claro",
+    "dark": "Modo escuro"
+  }
+}

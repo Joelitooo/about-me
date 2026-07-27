@@ -1,0 +1,46 @@
+{
+  "nav": {
+    "about": "O mnie",
+    "skills": "Umiejętności",
+    "projects": "Projekty",
+    "resume": "CV",
+    "contact": "Kontakt"
+  },
+  "hero": {
+    "greeting": "Cześć, jestem",
+    "name": "Twoje Imię",
+    "tagline": "Full-stack developer tworzący nowoczesne aplikacje webowe.",
+    "cta": "Skontaktuj się"
+  },
+  "about": {
+    "title": "O mnie",
+    "body": "Napisz krótkie bio tutaj. Wspomnij o swoim doświadczeniu, zainteresowaniach i tym, nad czym obecnie pracujesz."
+  },
+  "skills": {
+    "title": "Umiejętności"
+  },
+  "projects": {
+    "title": "Projekty",
+    "viewRepo": "Zobacz repozytorium"
+  },
+  "resume": {
+    "title": "CV",
+    "download": "Pobierz PDF"
+  },
+  "contact": {
+    "title": "Kontakt",
+    "name": "Imię",
+    "email": "Email",
+    "message": "Wiadomość",
+    "send": "Wyślij wiadomość",
+    "success": "Wiadomość wysłana!",
+    "error": "Nie udało się wysłać. Spróbuj ponownie."
+  },
+  "footer": {
+    "copyright": "© {{year}} Twoje Imię. Wszelkie prawa zastrzeżone."
+  },
+  "theme": {
+    "light": "Tryb jasny",
+    "dark": "Tryb ciemny"
+  }
+}
