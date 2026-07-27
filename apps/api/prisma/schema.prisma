@@ -1,0 +1,31 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  message   String
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("contact_messages")
+}
+
+/// Optional custom tracking alongside Umami (Phase 3). Schema only in Phase 2.
+model PageEvent {
+  id        String   @id @default(cuid())
+  name      String
+  path      String
+  timestamp DateTime
+  locale    String?
+  metadata  Json?
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("page_events")
+}

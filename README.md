@@ -14,8 +14,8 @@ via Cloudflare Tunnel. See [`MAIN_PLAN.md`](MAIN_PLAN.md) for the phased plan.
 
 ## Repo layout
 
-- `apps/web` — React SPA (Phase 0.1 hello world; full UI in Phase 1)
-- `apps/api` — NestJS API (added in Phase 2)
+- `apps/web` — React SPA (Tailwind, i18n, dark mode, sections)
+- `apps/api` — NestJS API (Prisma, Health + Contact)
 - `packages/shared` — shared TypeScript types/DTOs
 - `phases/` — per-phase plans and specs
 
@@ -23,14 +23,16 @@ via Cloudflare Tunnel. See [`MAIN_PLAN.md`](MAIN_PLAN.md) for the phased plan.
 
 - Node.js v20+ (v22 recommended)
 - Corepack enabled (`corepack enable`) for pnpm
+- Docker (local Postgres for API `dev`, Testcontainers for API tests)
 
 ## Commands
 
 ```bash
-pnpm dev           # start the web dev server (http://localhost:5173)
-pnpm install       # install all workspace deps
-pnpm typecheck     # typecheck every package
-pnpm lint          # lint the repo
-pnpm test          # run the Vitest workspace
-pnpm format        # format with Prettier
+pnpm dev                              # start the web dev server (http://localhost:5173)
+pnpm --filter @portfolio/api dev      # start the API (http://localhost:3000)
+pnpm install                          # install all workspace deps
+pnpm typecheck                        # typecheck every package
+pnpm lint                             # lint the repo
+pnpm test                             # run the Vitest workspace
+pnpm format                           # format with Prettier
 ```

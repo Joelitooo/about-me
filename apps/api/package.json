@@ -1,0 +1,45 @@
+{
+  "name": "@portfolio/api",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "nest start --watch",
+    "build": "nest build",
+    "start": "node dist/main.js",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:deploy": "prisma migrate deploy"
+  },
+  "dependencies": {
+    "@nestjs/common": "^11.1.28",
+    "@nestjs/config": "^4.0.4",
+    "@nestjs/core": "^11.1.28",
+    "@nestjs/platform-express": "^11.1.28",
+    "@nestjs/throttler": "^6.5.0",
+    "@portfolio/shared": "workspace:*",
+    "@prisma/client": "^6.19.3",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.15.1",
+    "helmet": "^8.3.0",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.2"
+  },
+  "devDependencies": {
+    "@nestjs/cli": "^11.0.24",
+    "@nestjs/testing": "^11.1.28",
+    "@swc/core": "^1.15.46",
+    "@testcontainers/postgresql": "^12.0.4",
+    "@types/express": "^5.0.6",
+    "@types/node": "^26.1.2",
+    "@types/supertest": "^7.2.1",
+    "prisma": "^6.19.3",
+    "supertest": "^7.2.2",
+    "testcontainers": "^12.0.4",
+    "typescript": "^5.5.0",
+    "unplugin-swc": "^1.5.9",
+    "vitest": "^2.0.0"
+  }
+}
