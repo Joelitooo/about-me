@@ -23,7 +23,7 @@ via Cloudflare Tunnel. See [`MAIN_PLAN.md`](MAIN_PLAN.md) for the phased plan.
 
 - Node.js v20+ (v22 recommended)
 - Corepack enabled (`corepack enable`) for pnpm
-- Docker (local Postgres for API `dev`, Testcontainers for API tests)
+- Docker with Compose v2 and Buildx (local Postgres for API `dev`, Testcontainers for API tests, full stack via `infra/docker-compose.yml`)
 
 ## Commands
 
@@ -36,3 +36,18 @@ pnpm lint                             # lint the repo
 pnpm test                             # run the Vitest workspace
 pnpm format                           # format with Prettier
 ```
+
+## Docker
+
+The whole stack is described by `infra/docker-compose.yml` (`web`, `api`, `postgres`, `umami`, and `cloudflared`). Copy `infra/.env.example` to `infra/.env` and fill the secrets first.
+
+```bash
+docker compose -f infra/docker-compose.yml build          # build web + api images
+docker compose -f infra/docker-compose.yml up -d          # start everything but the tunnel
+docker compose -f infra/docker-compose.yml ps             # check health
+docker compose -f infra/docker-compose.yml logs -f api    # follow API logs
+docker compose -f infra/docker-compose.yml up -d postgres umami   # just the DB + analytics
+docker compose -f infra/docker-compose.yml down           # stop (volumes are kept)
+```
+
+The web image bakes `VITE_*` values at build time, so rebuild it after changing them. The API applies `prisma migrate deploy` on every start.

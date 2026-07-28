@@ -1,0 +1,31 @@
+# VCS & docs
+.git
+.github
+phases
+*.md
+!README.md
+
+# Dependencies & build output
+**/node_modules
+.pnpm-store
+**/dist
+**/build
+**/*.tsbuildinfo
+
+# Secrets — never in a build context
+**/.env
+**/.env.*
+!**/.env.example
+infra/cloudflared/credentials.json
+
+# Test & tool output
+**/coverage
+**/test-results
+**/playwright-report
+**/blob-report
+**/playwright/.cache
+
+# Editor / OS
+**/.DS_Store
+.idea
+.vscode

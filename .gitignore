@@ -34,3 +34,6 @@ coverage/
 **/playwright-report/
 **/blob-report/
 **/playwright/.cache/
+
+# Cloudflare Tunnel credentials (Phase 5)
+infra/cloudflared/credentials.json
