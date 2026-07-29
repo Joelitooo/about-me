@@ -3,6 +3,7 @@ import { ConfigModule, ConfigService } from "@nestjs/config";
 import { APP_GUARD } from "@nestjs/core";
 import { ThrottlerGuard, ThrottlerModule } from "@nestjs/throttler";
 
+import { getClientIp } from "./common/client-ip";
 import { ContactModule } from "./contact/contact.module";
 import { HealthModule } from "./health/health.module";
 import { PrismaModule } from "./prisma/prisma.module";
@@ -19,6 +20,7 @@ import { PrismaModule } from "./prisma/prisma.module";
         {
           ttl: Number(config.get("THROTTLE_TTL_MS", 60_000)),
           limit: Number(config.get("THROTTLE_LIMIT", 20)),
+          getTracker: (req: Record<string, unknown>) => getClientIp(req),
         },
       ],
     }),

@@ -1,19 +1,16 @@
-# Tunnel UUID and credentials are created in Phase 5:
-#   cloudflared tunnel create portfolio
-#   cloudflared tunnel route dns portfolio example.com
-tunnel: REPLACE_WITH_TUNNEL_UUID
+tunnel: e22f2413-c5ee-4db3-ad0e-ecb1c6bafc1f
 credentials-file: /etc/cloudflared/credentials.json
 no-autoupdate: true
 
-# Hostnames resolve to Compose service names on the internal network.
+# Hostnames resolve to Compose service names on the internal Docker network.
 ingress:
-  - hostname: example.com
+  - hostname: joelitoo.com
     service: http://web:80
-  - hostname: www.example.com
+  - hostname: www.joelitoo.com
     service: http://web:80
-  - hostname: api.example.com
+  - hostname: api.joelitoo.com
     service: http://api:3000
-  - hostname: analytics.example.com
+  - hostname: analytics.joelitoo.com
     service: http://umami:3000
   # Required: cloudflared rejects a config whose last rule is not a catch-all.
   - service: http_status:404

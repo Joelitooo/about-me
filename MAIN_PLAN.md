@@ -64,7 +64,7 @@ Mark a phase `[x]` once you've reviewed and accepted it as done. I'll leave thes
 - [ ] **Phase 2** - [Backend API (`apps/api`)](phases/phase-2/plan.md) ([spec](phases/phase-2/spec.md))
 - [ ] **Phase 3** - [Analytics (Umami)](phases/phase-3/plan.md) ([spec](phases/phase-3/spec.md))
 - [ ] **Phase 4** - [Dockerization (`infra`)](phases/phase-4/plan.md) ([spec](phases/phase-4/spec.md))
-- [ ] **Phase 5** - [Deployment on the Pi + Cloudflare Tunnel](phases/phase-5.md)
+- [ ] **Phase 5** - [Deployment on the Pi + Cloudflare Tunnel](phases/phase-5/plan.md) ([spec](phases/phase-5/spec.md))
 - [ ] **Phase 6** - [CI/CD and hardening](phases/phase-6.md)
 
 ### Phases
@@ -76,7 +76,7 @@ Detailed, self-contained plans live in the [`phases/`](phases/) directory. This 
 - [Phase 2 - Backend API (`apps/api`)](phases/phase-2/plan.md) — [technical spec](phases/phase-2/spec.md)
 - [Phase 3 - Analytics (Umami)](phases/phase-3/plan.md) — [technical spec](phases/phase-3/spec.md)
 - [Phase 4 - Dockerization (`infra`)](phases/phase-4/plan.md) — [technical spec](phases/phase-4/spec.md)
-- [Phase 5 - Deployment on the Pi + Cloudflare Tunnel](phases/phase-5.md)
+- [Phase 5 - Deployment on the Pi + Cloudflare Tunnel](phases/phase-5/plan.md) — [technical spec](phases/phase-5/spec.md)
 - [Phase 6 - CI/CD and hardening](phases/phase-6.md)
 
 ### Testing strategy
