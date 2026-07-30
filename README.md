@@ -134,6 +134,6 @@ gzip -t pg_dumpall-<timestamp>.sql.gz
 gzip -dc pg_dumpall-<timestamp>.sql.gz | grep -E 'CREATE DATABASE|contact_messages'
 ```
 
-See the [Phase 6 plan](phases/phase-6.md) for runner setup,
-workflow behavior, rollback drills, monitoring verification, and off-site
-restore testing.
+Full setup — runner registration, workflow behavior, rollback drills,
+monitoring verification, and off-site restore testing — is in
+[`phases/phase-6/spec.md`](phases/phase-6/spec.md).
