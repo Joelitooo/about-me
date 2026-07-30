@@ -51,3 +51,17 @@ docker compose -f infra/docker-compose.yml down           # stop (volumes are ke
 ```
 
 The web image bakes `VITE_*` values at build time, so rebuild it after changing them. The API applies `prisma migrate deploy` on every start.
+
+## Deployment
+
+The stack runs on a Raspberry Pi (Ubuntu Server 24.04, arm64) and is published through a Cloudflare Tunnel — no router port is forwarded. `infra/cloudflared/config.yml` maps each hostname to a Compose service; `infra/cloudflared/credentials.json` is a secret and is gitignored.
+
+```bash
+docker compose -f infra/docker-compose.yml build web   # after changing any VITE_* value
+docker compose -f infra/docker-compose.yml up -d       # includes cloudflared via COMPOSE_PROFILES=tunnel
+docker compose -f infra/docker-compose.yml logs -f cloudflared
+cloudflared tunnel info portfolio                      # connector status
+sudo systemctl list-timers portfolio-pg-backup.timer   # nightly database dump
+```
+
+Full setup — Cloudflare account, tunnel creation, DNS, host hardening, backups — is in [`phases/phase-5/spec.md`](phases/phase-5/spec.md).
