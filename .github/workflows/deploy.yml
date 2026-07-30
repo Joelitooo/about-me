@@ -147,6 +147,11 @@ jobs:
         env:
           UMAMI_WEBSITE_ID: ${{ vars.VITE_UMAMI_WEBSITE_ID || secrets.VITE_UMAMI_WEBSITE_ID }}
         run: |
+          if [ -z "${UMAMI_WEBSITE_ID}" ]; then
+            echo "::error::VITE_UMAMI_WEBSITE_ID is not set in the production environment; the web image would ship without analytics."
+            exit 1
+          fi
+
           {
             echo "WEB_BUILD_ARGS<<EOF"
             echo "VITE_API_URL=https://api.joelitoo.com"
@@ -194,7 +199,11 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Deploy immutable images
-        run: infra/scripts/deploy.sh "${{ inputs.deploy_sha || github.sha }}"
+        # The dispatch input reaches the shell as data, never as command text:
+        # this job runs on the Pi, where injected commands would be privileged.
+        env:
+          DEPLOY_SHA: ${{ inputs.deploy_sha || github.sha }}
+        run: infra/scripts/deploy.sh "$DEPLOY_SHA"
 
   smoke:
     name: Public smoke checks
