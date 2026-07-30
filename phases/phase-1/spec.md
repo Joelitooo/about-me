@@ -285,7 +285,7 @@ Tailwind v4 CSS-first config. No `tailwind.config.js` or PostCSS config needed.
 
 .dark {
   --color-canvas: oklch(0.15 0.02 240);
-  --color-surface: oklch(0.20 0.02 240);
+  --color-surface: oklch(0.2 0.02 240);
   --color-ink: oklch(0.92 0.01 240);
   --color-ink-soft: oklch(0.65 0.01 240);
   --color-accent: oklch(0.65 0.15 250);
@@ -720,6 +720,7 @@ export function Layout() {
 ### 5.21 `apps/web/src/components/Navbar.tsx` (skeleton)
 
 Sticky top navbar with:
+
 - Anchor links to each section (`#about`, `#skills`, etc.) using `t("nav.*")` keys.
 - Locale switcher (EN / PT / PL) calling `i18n.changeLanguage()`.
 - Dark mode toggle button using `useTheme()`.
@@ -733,6 +734,7 @@ Simple footer displaying `t("footer.copyright", { year: new Date().getFullYear()
 ### 5.23 `apps/web/src/sections/Hero.tsx` (skeleton)
 
 Full-viewport hero section with:
+
 - `t("hero.greeting")`, `t("hero.name")`, `t("hero.tagline")`.
 - CTA button linking to `#contact`.
 - Subtle background gradient using `@theme` tokens.
@@ -740,6 +742,7 @@ Full-viewport hero section with:
 ### 5.24 `apps/web/src/sections/About.tsx`, `Skills.tsx`, `Projects.tsx`, `Resume.tsx` (skeleton)
 
 Each section:
+
 - Has an `id` matching the navbar anchor (e.g. `id="about"`).
 - Uses `t("<section>.title")` and section-specific translation keys.
 - **About:** renders `t("about.body")`.
@@ -760,6 +763,7 @@ interface ProjectCard {
 ### 5.25 `apps/web/src/sections/Contact.tsx` (skeleton)
 
 Contact form that:
+
 - Collects name, email, message.
 - Validates required fields and email format client-side.
 - On submit, calls `postContactMessage()` from `apiClient.ts` with a `ContactMessageDto`.
@@ -957,10 +961,21 @@ Phase 1 adds the **web testing layer** on top of the Phase 0 foundation.
 
   ```ts
   const PROJECTS: ProjectCard[] = [
-    { title: "Portfolio Monorepo", description: "This site.", repoUrl: "https://github.com/you/about-me", tags: ["React", "NestJS"] },
-    { title: "Side Project", description: "Something else.", repoUrl: "https://github.com/you/other", tags: ["TypeScript"] },
+    {
+      title: "Portfolio Monorepo",
+      description: "This site.",
+      repoUrl: "https://github.com/you/about-me",
+      tags: ["React", "NestJS"],
+    },
+    {
+      title: "Side Project",
+      description: "Something else.",
+      repoUrl: "https://github.com/you/other",
+      tags: ["TypeScript"],
+    },
   ];
   ```
 
   A future enhancement (not Phase 1) could fetch real repos from the GitHub API via TanStack Query — either directly from the browser (needs a public token or proxy) or through a backend endpoint in Phase 2. Keeping it static now avoids scope creep and API rate-limit concerns.
+
 - Exact dependency versions may float within the specified ranges; the lockfile is the source of truth. Bump majors deliberately, not automatically.

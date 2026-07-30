@@ -267,7 +267,7 @@ sudo chmod 600 infra/cloudflared/credentials.json
 ls -l infra/cloudflared/credentials.json   # -rw------- 1 65532 65532
 ```
 
-Why the `chown`: the container runs as UID `65532` and mounts `./cloudflared` read-only. A `600` file owned by your user is unreadable to it, and `cloudflared` exits with a permission error that looks like a config problem. Owning it by `65532` keeps the file private *and* readable by the connector. If `sudo` is unavailable, `chmod 644` also works — weaker, but acceptable on a single-user host.
+Why the `chown`: the container runs as UID `65532` and mounts `./cloudflared` read-only. A `600` file owned by your user is unreadable to it, and `cloudflared` exits with a permission error that looks like a config problem. Owning it by `65532` keeps the file private _and_ readable by the connector. If `sudo` is unavailable, `chmod 644` also works — weaker, but acceptable on a single-user host.
 
 `infra/cloudflared/credentials.json` is already covered by `.gitignore` from Phase 4. Verify before the first commit:
 
@@ -454,14 +454,16 @@ describe("getClientIp", () => {
   });
 
   it("ignores a spoofable X-Forwarded-For", () => {
-    expect(
-      getClientIp({ headers: { "x-forwarded-for": "1.2.3.4" }, ip: "172.18.0.5" }),
-    ).toBe("172.18.0.5");
+    expect(getClientIp({ headers: { "x-forwarded-for": "1.2.3.4" }, ip: "172.18.0.5" })).toBe(
+      "172.18.0.5",
+    );
   });
 
   it("falls back to req.ip when the header is absent or blank", () => {
     expect(getClientIp({ headers: {}, ip: "127.0.0.1" })).toBe("127.0.0.1");
-    expect(getClientIp({ headers: { "cf-connecting-ip": "  " }, ip: "127.0.0.1" })).toBe("127.0.0.1");
+    expect(getClientIp({ headers: { "cf-connecting-ip": "  " }, ip: "127.0.0.1" })).toBe(
+      "127.0.0.1",
+    );
   });
 
   it("never returns undefined", () => {
@@ -495,15 +497,15 @@ docker compose -f infra/docker-compose.yml logs --tail 5 web
 
 All in the dashboard, under the domain. Each is one click.
 
-| Setting                                                   | Value               | Why                                                                                                                                                            |
-| --------------------------------------------------------- | ------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| SSL/TLS → Overview → encryption mode                      | **Full (strict)**   | Never **Flexible**: it is the classic cause of redirect loops, and it advertises an unencrypted origin hop. The Cloudflare→connector hop is encrypted regardless, so strict is safe even though the ingress targets plain HTTP inside Docker. |
-| SSL/TLS → Edge Certificates → **Always Use HTTPS**        | On                  | 301s any `http://` request at the edge. nginx does no redirecting, so this is the only place it happens — and therefore no loop is possible.                    |
-| SSL/TLS → Edge Certificates → **Minimum TLS Version**     | 1.2                 | Drops TLS 1.0/1.1 clients; no realistic visitor impact.                                                                                                        |
-| Rules → **Redirect Rules** → new rule                     | `www` → apex, 301   | One canonical hostname keeps CORS, analytics, and SEO simple. Free plan allows 10 such rules.                                                                   |
-| Speed → Optimization → **Rocket Loader**                  | Off (default)       | It defers and reorders scripts, which breaks React bundles in ways that are painful to debug.                                                                   |
-| Security → Bots → **Bot Fight Mode**                      | Off (default)       | It challenges non-browser clients, which would break `curl` health checks and can interfere with Umami's tracking POSTs.                                        |
-| SSL/TLS → Edge Certificates → **HSTS**                    | Leave off           | Enable later, deliberately. A max-age is not revocable: browsers refuse plain HTTP for the domain until it expires, so a mistake is a long outage.              |
+| Setting                                               | Value             | Why                                                                                                                                                                                                                                           |
+| ----------------------------------------------------- | ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| SSL/TLS → Overview → encryption mode                  | **Full (strict)** | Never **Flexible**: it is the classic cause of redirect loops, and it advertises an unencrypted origin hop. The Cloudflare→connector hop is encrypted regardless, so strict is safe even though the ingress targets plain HTTP inside Docker. |
+| SSL/TLS → Edge Certificates → **Always Use HTTPS**    | On                | 301s any `http://` request at the edge. nginx does no redirecting, so this is the only place it happens — and therefore no loop is possible.                                                                                                  |
+| SSL/TLS → Edge Certificates → **Minimum TLS Version** | 1.2               | Drops TLS 1.0/1.1 clients; no realistic visitor impact.                                                                                                                                                                                       |
+| Rules → **Redirect Rules** → new rule                 | `www` → apex, 301 | One canonical hostname keeps CORS, analytics, and SEO simple. Free plan allows 10 such rules.                                                                                                                                                 |
+| Speed → Optimization → **Rocket Loader**              | Off (default)     | It defers and reorders scripts, which breaks React bundles in ways that are painful to debug.                                                                                                                                                 |
+| Security → Bots → **Bot Fight Mode**                  | Off (default)     | It challenges non-browser clients, which would break `curl` health checks and can interfere with Umami's tracking POSTs.                                                                                                                      |
+| SSL/TLS → Edge Certificates → **HSTS**                | Leave off         | Enable later, deliberately. A max-age is not revocable: browsers refuse plain HTTP for the domain until it expires, so a mistake is a long outage.                                                                                            |
 
 The `www` → apex redirect rule, concretely: **Rules → Redirect Rules → Create rule**, custom filter expression `Hostname equals www.example.com`, then a dynamic redirect to `concat("https://example.com", http.request.uri.path)` with status **301** and "Preserve query string" enabled.
 

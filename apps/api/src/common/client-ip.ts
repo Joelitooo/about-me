@@ -6,10 +6,7 @@ const CF_CONNECTING_IP = "cf-connecting-ip";
  * The fallback matters for local runs and tests, where the header is absent.
  */
 export function getClientIp(req: Record<string, unknown>): string {
-  const headers = (req.headers ?? {}) as Record<
-    string,
-    string | string[] | undefined
-  >;
+  const headers = (req.headers ?? {}) as Record<string, string | string[] | undefined>;
   const header = headers[CF_CONNECTING_IP];
   const candidate = (Array.isArray(header) ? header[0] : header)?.trim();
 

@@ -16,11 +16,7 @@ services:
       - portfolio-pg-data:/var/lib/postgresql/data
       - ./postgres/init.sql:/docker-entrypoint-initdb.d/01-umami.sql:ro
     healthcheck:
-      test:
-        [
-          "CMD-SHELL",
-          "pg_isready -U ${POSTGRES_USER:-portfolio} -d ${POSTGRES_DB:-portfolio}",
-        ]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-portfolio} -d ${POSTGRES_DB:-portfolio}"]
       interval: 5s
       timeout: 5s
       retries: 10
@@ -29,7 +25,7 @@ services:
     build:
       context: ..
       dockerfile: infra/api.Dockerfile
-    image: portfolio-api:local
+    image: ${API_IMAGE:-portfolio-api:local}
     container_name: portfolio-api
     restart: unless-stopped
     ports:
@@ -55,7 +51,7 @@ services:
         VITE_API_URL: ${VITE_API_URL:?Set VITE_API_URL in infra/.env}
         VITE_UMAMI_URL: ${VITE_UMAMI_URL-}
         VITE_UMAMI_WEBSITE_ID: ${VITE_UMAMI_WEBSITE_ID-}
-    image: portfolio-web:local
+    image: ${WEB_IMAGE:-portfolio-web:local}
     container_name: portfolio-web
     restart: unless-stopped
     ports:
@@ -96,5 +92,16 @@ services:
       - api
       - umami
 
+  uptime-kuma:
+    image: louislam/uptime-kuma:1@sha256:3d632903e6af34139a37f18055c4f1bfd9b7205ae1138f1e5e8940ddc1d176f9
+    container_name: portfolio-uptime-kuma
+    restart: unless-stopped
+    profiles: ["monitoring"]
+    ports:
+      - "127.0.0.1:${KUMA_PORT:-3002}:3001"
+    volumes:
+      - portfolio-kuma-data:/app/data
+
 volumes:
   portfolio-pg-data:
+  portfolio-kuma-data:

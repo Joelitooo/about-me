@@ -153,11 +153,7 @@ services:
       - portfolio-pg-data:/var/lib/postgresql/data
       - ./postgres/init.sql:/docker-entrypoint-initdb.d/01-umami.sql:ro
     healthcheck:
-      test:
-        [
-          "CMD-SHELL",
-          "pg_isready -U ${POSTGRES_USER:-portfolio} -d ${POSTGRES_DB:-portfolio}",
-        ]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-portfolio} -d ${POSTGRES_DB:-portfolio}"]
       interval: 5s
       timeout: 5s
       retries: 10
@@ -336,9 +332,7 @@ describe("UmamiAnalytics", () => {
       const script = document.querySelector("script[umamiPortfolio]");
       expect(script).not.toBeNull();
       expect(script?.getAttribute("src")).toBe("http://localhost:3001/script.js");
-      expect(script?.getAttribute("data-website-id")).toBe(
-        "11111111-1111-1111-1111-111111111111",
-      );
+      expect(script?.getAttribute("data-website-id")).toBe("11111111-1111-1111-1111-111111111111");
     });
   });
 });
@@ -468,7 +462,7 @@ Automated tests must remain green on a machine that has never started Umami.
 
 ## 9. Notes & decisions
 
-- **Phase 3 vs Phase 4:** Phase 3 owns the *analytics learning loop* (DB split, Umami container, tracker in the SPA). Phase 4 owns production Dockerfiles and the full Compose graph (`web`, `api`, `postgres`, `umami`, `cloudflared`). Expect Phase 4 to **merge** `docker-compose.umami.yml` into `docker-compose.yml` rather than run two compose files in production.
+- **Phase 3 vs Phase 4:** Phase 3 owns the _analytics learning loop_ (DB split, Umami container, tracker in the SPA). Phase 4 owns production Dockerfiles and the full Compose graph (`web`, `api`, `postgres`, `umami`, `cloudflared`). Expect Phase 4 to **merge** `docker-compose.umami.yml` into `docker-compose.yml` rather than run two compose files in production.
 - **Port 3001:** avoids fighting Nest on 3000. Production will use Cloudflare hostnames, not host ports.
 - **Strong secrets, no weak fallbacks:** `POSTGRES_PASSWORD` and `APP_SECRET` are generated (`openssl rand -hex …`), stored only in `infra/.env`, and required via Compose `${VAR:?…}`. Do not default either to `portfolio` or a placeholder string.
 - **Shared Postgres role for Umami:** same `POSTGRES_USER` / password for both DBs is acceptable for local/Pi learning. A dedicated `umami` DB role can be added in Phase 4/hardening without changing the web tracker.
