@@ -3,6 +3,7 @@ Description=Dump the portfolio Postgres cluster
 Documentation=https://github.com/Joelitooo/about-me
 Requires=docker.service
 After=docker.service
+OnSuccess=portfolio-pg-backup-offsite.service
 
 [Service]
 Type=oneshot

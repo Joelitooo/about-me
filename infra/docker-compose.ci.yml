@@ -1,0 +1,44 @@
+services:
+  postgres:
+    container_name: !reset null
+    restart: "no"
+    environment:
+      POSTGRES_USER: portfolio
+      POSTGRES_PASSWORD: ci-not-secret
+      POSTGRES_DB: portfolio
+
+  api:
+    container_name: !reset null
+    restart: "no"
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      DATABASE_URL: postgresql://portfolio:ci-not-secret@postgres:5432/portfolio?schema=public
+      CORS_ORIGIN: http://127.0.0.1:8080
+      THROTTLE_TTL_MS: 60000
+      THROTTLE_LIMIT: 20
+
+  web:
+    container_name: !reset null
+    restart: "no"
+    build:
+      args:
+        VITE_API_URL: http://127.0.0.1:3000
+        VITE_UMAMI_URL: ""
+        VITE_UMAMI_WEBSITE_ID: ""
+
+  umami:
+    container_name: !reset null
+    restart: "no"
+    environment:
+      DATABASE_URL: postgresql://portfolio:ci-not-secret@postgres:5432/umami
+      APP_SECRET: ci-not-secret
+      DISABLE_TELEMETRY: "1"
+
+  cloudflared:
+    container_name: !reset null
+    restart: "no"
+
+  uptime-kuma:
+    container_name: !reset null
+    restart: "no"

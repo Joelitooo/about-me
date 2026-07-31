@@ -1,0 +1,9 @@
+[Unit]
+Description=Copy portfolio Postgres dumps off-site
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+EnvironmentFile=/etc/default/portfolio-pg-backup-offsite
+ExecStart=/usr/local/bin/portfolio-pg-backup-offsite

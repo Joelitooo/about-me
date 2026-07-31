@@ -23,9 +23,9 @@ describe("getClientIp", () => {
 
   it("falls back to req.ip when the header is absent or blank", () => {
     expect(getClientIp({ headers: {}, ip: "127.0.0.1" })).toBe("127.0.0.1");
-    expect(
-      getClientIp({ headers: { "cf-connecting-ip": "  " }, ip: "127.0.0.1" }),
-    ).toBe("127.0.0.1");
+    expect(getClientIp({ headers: { "cf-connecting-ip": "  " }, ip: "127.0.0.1" })).toBe(
+      "127.0.0.1",
+    );
   });
 
   it("never returns undefined", () => {

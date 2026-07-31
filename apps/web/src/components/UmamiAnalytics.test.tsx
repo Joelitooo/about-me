@@ -28,9 +28,7 @@ describe("UmamiAnalytics", () => {
       const script = document.querySelector("script[umamiPortfolio]");
       expect(script).not.toBeNull();
       expect(script?.getAttribute("src")).toBe("http://localhost:3001/script.js");
-      expect(script?.getAttribute("data-website-id")).toBe(
-        "11111111-1111-1111-1111-111111111111",
-      );
+      expect(script?.getAttribute("data-website-id")).toBe("11111111-1111-1111-1111-111111111111");
     });
   });
 });

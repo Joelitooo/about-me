@@ -16,9 +16,7 @@ export function Hero() {
         <p className="mb-3 text-sm font-medium uppercase tracking-[0.2em] text-ink-soft">
           {t("hero.greeting")}
         </p>
-        <h1 className="mb-4 text-4xl font-bold tracking-tight text-ink sm:text-6xl">
-          {t("hero.name")}
-        </h1>
+        <h1 className="mb-4 text-4xl font-bold tracking-tight text-ink sm:text-6xl">{"Joel"}</h1>
         <p className="mb-8 max-w-2xl text-lg text-ink-soft sm:text-xl">{t("hero.tagline")}</p>
         <a
           href="#contact"

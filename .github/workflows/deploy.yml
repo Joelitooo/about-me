@@ -1,0 +1,218 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      deploy_sha:
+        description: Previously published full SHA to deploy (defaults to main HEAD)
+        required: false
+        type: string
+
+permissions:
+  contents: read
+  packages: write
+
+concurrency:
+  group: production
+  cancel-in-progress: false
+
+jobs:
+  quality:
+    uses: ./.github/workflows/ci.yml
+
+  e2e:
+    name: Production-path E2E
+    needs: quality
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      POSTGRES_PASSWORD: ci-not-secret
+      APP_SECRET: ci-not-secret
+      CORS_ORIGIN: http://127.0.0.1:8080
+      VITE_API_URL: http://127.0.0.1:3000
+      VITE_UMAMI_URL: ""
+      VITE_UMAMI_WEBSITE_ID: ""
+      COMPOSE_PROFILES: ""
+    steps:
+      - name: Check out exact ref
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ github.sha }}
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Set up Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+
+      - name: Activate pnpm 9
+        run: corepack prepare pnpm@9.0.0 --activate
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Chromium
+        run: pnpm --filter @portfolio/web exec playwright install --with-deps chromium
+
+      - name: Start CI stack
+        run: >-
+          docker compose
+          -p "portfolio-ci-${GITHUB_RUN_ID}"
+          -f infra/docker-compose.yml
+          -f infra/docker-compose.ci.yml
+          up -d --build --wait
+
+      - name: Run production-path E2E
+        env:
+          PLAYWRIGHT_BASE_URL: http://127.0.0.1:8080
+          PLAYWRIGHT_EXTERNAL_SERVER: "1"
+        run: pnpm test:e2e
+
+      - name: Capture sanitized Compose logs
+        if: failure()
+        run: >-
+          docker compose
+          -p "portfolio-ci-${GITHUB_RUN_ID}"
+          -f infra/docker-compose.yml
+          -f infra/docker-compose.ci.yml
+          logs --no-color
+          | sed -E
+          -e 's#(postgresql://[^:[:space:]]+:)[^@[:space:]]+#\1***#g'
+          -e 's/ci-not-secret/***/g'
+          > compose.log
+
+      - name: Upload E2E failure artifacts
+        if: failure()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: e2e-${{ github.run_id }}
+          path: |
+            apps/web/playwright-report/
+            apps/web/test-results/
+            compose.log
+          if-no-files-found: ignore
+          retention-days: 7
+
+      - name: Remove CI stack and volumes
+        if: always()
+        run: >-
+          docker compose
+          -p "portfolio-ci-${GITHUB_RUN_ID}"
+          -f infra/docker-compose.yml
+          -f infra/docker-compose.ci.yml
+          down -v --remove-orphans
+
+  publish:
+    name: Publish ${{ matrix.component }}
+    needs: e2e
+    runs-on: ubuntu-latest
+    environment: production
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - component: api
+            dockerfile: infra/api.Dockerfile
+            image: ghcr.io/joelitooo/portfolio-api
+          - component: web
+            dockerfile: infra/web.Dockerfile
+            image: ghcr.io/joelitooo/portfolio-web
+    steps:
+      - name: Check out exact ref
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ github.sha }}
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@c7c53464625b32c7a7e944ae62b3e17d2b600130 # v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # v3
+
+      - name: Log in to GHCR
+        uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure web build arguments
+        if: matrix.component == 'web'
+        env:
+          UMAMI_WEBSITE_ID: ${{ vars.VITE_UMAMI_WEBSITE_ID || secrets.VITE_UMAMI_WEBSITE_ID }}
+        run: |
+          if [ -z "${UMAMI_WEBSITE_ID}" ]; then
+            echo "::error::VITE_UMAMI_WEBSITE_ID is not set in the production environment; the web image would ship without analytics."
+            exit 1
+          fi
+
+          {
+            echo "WEB_BUILD_ARGS<<EOF"
+            echo "VITE_API_URL=https://api.joelitoo.com"
+            echo "VITE_UMAMI_URL=https://analytics.joelitoo.com"
+            echo "VITE_UMAMI_WEBSITE_ID=${UMAMI_WEBSITE_ID}"
+            echo "EOF"
+          } >> "$GITHUB_ENV"
+
+      - name: Build and publish
+        uses: docker/build-push-action@10e90e3645eae34f1e60eeb005ba3a3d33f178e8 # v6
+        with:
+          context: .
+          file: ${{ matrix.dockerfile }}
+          platforms: linux/arm64
+          push: true
+          tags: |
+            ${{ matrix.image }}:${{ github.sha }}
+            ${{ matrix.image }}:latest
+          labels: |
+            org.opencontainers.image.source=${{ github.server_url }}/${{ github.repository }}
+            org.opencontainers.image.revision=${{ github.sha }}
+          build-args: ${{ env.WEB_BUILD_ARGS }}
+          cache-from: type=gha,scope=${{ matrix.component }}
+          cache-to: type=gha,mode=max,scope=${{ matrix.component }}
+
+  deploy:
+    name: Deploy to Pi
+    if: github.ref == 'refs/heads/main'
+    needs: publish
+    runs-on: [self-hosted, linux, ARM64, portfolio-pi]
+    environment: production
+    timeout-minutes: 15
+    steps:
+      - name: Check out trusted main workflow ref
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          ref: ${{ github.sha }}
+          clean: true
+
+      - name: Log in to GHCR
+        uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Deploy immutable images
+        # The dispatch input reaches the shell as data, never as command text:
+        # this job runs on the Pi, where injected commands would be privileged.
+        env:
+          DEPLOY_SHA: ${{ inputs.deploy_sha || github.sha }}
+        run: infra/scripts/deploy.sh "$DEPLOY_SHA"
+
+  smoke:
+    name: Public smoke checks
+    needs: deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check public health endpoints
+        run: |
+          test "$(curl --fail --show-error --silent --retry 5 --retry-delay 5 https://joelitoo.com/healthz)" = "ok"
+          curl --fail --show-error --silent --retry 5 --retry-delay 5 https://api.joelitoo.com/health |
+            grep --fixed-strings --quiet '"status":"ok"'

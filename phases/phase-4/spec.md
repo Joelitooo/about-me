@@ -341,11 +341,11 @@ ENTRYPOINT ["/usr/local/bin/api-entrypoint.sh"]
 {
   "dependencies": {
     // ...existing entries...
-    "prisma": "^6.19.3"
+    "prisma": "^6.19.3",
   },
   "devDependencies": {
     // "prisma" removed from here
-  }
+  },
 }
 ```
 
@@ -380,11 +380,7 @@ services:
       - portfolio-pg-data:/var/lib/postgresql/data
       - ./postgres/init.sql:/docker-entrypoint-initdb.d/01-umami.sql:ro
     healthcheck:
-      test:
-        [
-          "CMD-SHELL",
-          "pg_isready -U ${POSTGRES_USER:-portfolio} -d ${POSTGRES_DB:-portfolio}",
-        ]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-portfolio} -d ${POSTGRES_DB:-portfolio}"]
       interval: 5s
       timeout: 5s
       retries: 10
