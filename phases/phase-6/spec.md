@@ -375,13 +375,22 @@ Write a POSIX shell script with `set -eu`. It accepts exactly one full SHA and r
    - `WEB_IMAGE=ghcr.io/joelitooo/portfolio-web:<sha>`
 2. Read and retain the currently running API and web image references with `docker inspect`.
 3. Pull the requested images.
-4. Run `docker compose -f infra/docker-compose.yml up -d --no-build api web`.
+4. Validate Compose config with `--env-file`, then run
+   `docker compose --env-file … -f infra/docker-compose.yml up -d --no-build --no-deps api web`.
 5. Wait up to 120 seconds for both containers to report healthy.
 6. Check `http://127.0.0.1:8080/healthz` and `http://127.0.0.1:3000/health`.
 7. If any step after replacement fails, restore both prior image references and recreate the services.
 8. Print the deployed SHA and final container status.
 
-Run it from the repository root and load `infra/.env` through Compose. Do not modify that file. Use a shell trap so health-check failure invokes rollback. A rollback is successful only after the same local health checks pass.
+Run it from the repository root. The self-hosted runner checkout has no
+gitignored `infra/.env`, so load interpolation from
+`/etc/portfolio/deploy.env` via `docker compose --env-file` (overridable with
+`PORTFOLIO_ENV_FILE`). That file is root-owned, mode `0640`, group `docker`
+(so both the operator and the self-hosted runner can read it), and is created
+on the Pi outside git. Do not write secrets into the checkout. Validate Compose config before arming rollback so a missing
+env file cannot trigger a phantom restore. Use a shell trap so health-check
+failure invokes rollback. A rollback is successful only after the same local
+health checks pass.
 
 After a successful deploy, remove dangling project images but retain at least the current and previous tagged versions. Do not run broad `docker system prune -a`.
 

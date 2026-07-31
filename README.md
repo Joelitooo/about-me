@@ -102,8 +102,10 @@ docker inspect portfolio-web --format '{{.Config.Image}}'
 For a manual rollback, dispatch the Deploy workflow from `main` with a
 previously published full SHA. An operator can also run
 `infra/scripts/deploy.sh <full-sha>` from a trusted `main` checkout after
-logging in to GHCR. The script restores both previous images automatically if
-container or local endpoint health checks fail.
+logging in to GHCR. The script loads Compose interpolation from
+`/etc/portfolio/deploy.env` (override with `PORTFOLIO_ENV_FILE`) and restores
+both previous images automatically if container or local endpoint health checks
+fail.
 
 Uptime Kuma stores its configuration in the `portfolio-kuma-data` volume and
 listens only on `127.0.0.1:3002`. Open it locally on the Pi or use an
