@@ -23,6 +23,19 @@ repo_root=$(CDPATH= cd -- "$script_dir/../.." && pwd)
 cd "$repo_root"
 
 compose_file=infra/docker-compose.yml
+# Production deploy runs from the self-hosted runner checkout, which has no
+# gitignored infra/.env. The Pi keeps a readable copy at this path; override
+# with PORTFOLIO_ENV_FILE for local dry-runs.
+env_file=${PORTFOLIO_ENV_FILE:-/etc/portfolio/deploy.env}
+if [ ! -r "$env_file" ]; then
+  echo "environment file $env_file is missing or unreadable" >&2
+  exit 2
+fi
+
+compose() {
+  docker compose --env-file "$env_file" -f "$compose_file" "$@"
+}
+
 api_image="ghcr.io/joelitooo/portfolio-api:$sha"
 web_image="ghcr.io/joelitooo/portfolio-web:$sha"
 previous_api=$(docker inspect --format '{{.Config.Image}}' portfolio-api)
@@ -70,8 +83,9 @@ finish() {
 
   if [ "$status" -ne 0 ] && [ "$rollback_needed" -eq 1 ]; then
     echo "deployment failed; restoring previous images" >&2
-    if API_IMAGE="$previous_api" WEB_IMAGE="$previous_web" \
-      docker compose -f "$compose_file" up -d --no-build --no-deps api web &&
+    # Use env so the assignments do not leak after this function returns.
+    if env API_IMAGE="$previous_api" WEB_IMAGE="$previous_web" \
+      compose up -d --no-build --no-deps api web &&
       wait_for_health &&
       check_local_endpoints; then
       echo "rollback succeeded: API=$previous_api WEB=$previous_web" >&2
@@ -89,13 +103,20 @@ trap 'exit 1' HUP INT TERM
 docker pull "$api_image"
 docker pull "$web_image"
 
+# Validate interpolation before arming rollback. A missing env file or bad
+# compose config must not trigger a phantom restore of the running stack.
+if ! env API_IMAGE="$api_image" WEB_IMAGE="$web_image" compose config --quiet; then
+  echo "compose configuration is invalid; nothing was changed" >&2
+  exit 1
+fi
+
 # --no-deps keeps this to a two-service release. Without it Compose pulls in
 # postgres as an api dependency, and a CI checkout resolves its bind mounts to
 # different absolute paths than the running container, so every deploy would
 # recreate the database.
 rollback_needed=1
-API_IMAGE="$api_image" WEB_IMAGE="$web_image" \
-  docker compose -f "$compose_file" up -d --no-build --no-deps api web
+env API_IMAGE="$api_image" WEB_IMAGE="$web_image" \
+  compose up -d --no-build --no-deps api web
 wait_for_health
 check_local_endpoints
 
@@ -109,5 +130,5 @@ for image_id in $(docker image ls \
 done
 
 echo "deployed $sha"
-docker compose -f "$compose_file" ps api web
+compose ps api web
 rollback_needed=0
