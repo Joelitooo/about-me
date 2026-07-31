@@ -71,7 +71,7 @@ finish() {
   if [ "$status" -ne 0 ] && [ "$rollback_needed" -eq 1 ]; then
     echo "deployment failed; restoring previous images" >&2
     if API_IMAGE="$previous_api" WEB_IMAGE="$previous_web" \
-      docker compose -f "$compose_file" up -d --no-build api web &&
+      docker compose -f "$compose_file" up -d --no-build --no-deps api web &&
       wait_for_health &&
       check_local_endpoints; then
       echo "rollback succeeded: API=$previous_api WEB=$previous_web" >&2
@@ -89,9 +89,13 @@ trap 'exit 1' HUP INT TERM
 docker pull "$api_image"
 docker pull "$web_image"
 
+# --no-deps keeps this to a two-service release. Without it Compose pulls in
+# postgres as an api dependency, and a CI checkout resolves its bind mounts to
+# different absolute paths than the running container, so every deploy would
+# recreate the database.
 rollback_needed=1
 API_IMAGE="$api_image" WEB_IMAGE="$web_image" \
-  docker compose -f "$compose_file" up -d --no-build api web
+  docker compose -f "$compose_file" up -d --no-build --no-deps api web
 wait_for_health
 check_local_endpoints
 
