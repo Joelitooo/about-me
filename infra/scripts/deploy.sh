@@ -83,9 +83,11 @@ finish() {
 
   if [ "$status" -ne 0 ] && [ "$rollback_needed" -eq 1 ]; then
     echo "deployment failed; restoring previous images" >&2
-    # Use env so the assignments do not leak after this function returns.
-    if env API_IMAGE="$previous_api" WEB_IMAGE="$previous_web" \
-      compose up -d --no-build --no-deps api web &&
+    # Subshell so the image overrides do not leak into the calling shell.
+    if (
+      export API_IMAGE="$previous_api" WEB_IMAGE="$previous_web"
+      compose up -d --no-build --no-deps api web
+    ) &&
       wait_for_health &&
       check_local_endpoints; then
       echo "rollback succeeded: API=$previous_api WEB=$previous_web" >&2
@@ -105,7 +107,10 @@ docker pull "$web_image"
 
 # Validate interpolation before arming rollback. A missing env file or bad
 # compose config must not trigger a phantom restore of the running stack.
-if ! env API_IMAGE="$api_image" WEB_IMAGE="$web_image" compose config --quiet; then
+if ! (
+  export API_IMAGE="$api_image" WEB_IMAGE="$web_image"
+  compose config --quiet
+); then
   echo "compose configuration is invalid; nothing was changed" >&2
   exit 1
 fi
@@ -115,8 +120,10 @@ fi
 # different absolute paths than the running container, so every deploy would
 # recreate the database.
 rollback_needed=1
-env API_IMAGE="$api_image" WEB_IMAGE="$web_image" \
+(
+  export API_IMAGE="$api_image" WEB_IMAGE="$web_image"
   compose up -d --no-build --no-deps api web
+)
 wait_for_health
 check_local_endpoints
 
