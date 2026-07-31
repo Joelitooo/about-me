@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.7
 
-FROM node:22-bookworm-slim AS builder
+FROM node:25-bookworm-slim AS builder
 ENV PNPM_HOME=/pnpm
 ENV PATH=$PNPM_HOME:$PATH
 # Prisma's query engine needs OpenSSL, which the slim image does not ship.
@@ -38,7 +38,7 @@ RUN --mount=type=cache,id=pnpm,target=/pnpm/store \
     pnpm install --prod --frozen-lockfile --filter "@portfolio/api..."
 RUN pnpm --filter @portfolio/api exec prisma generate
 
-FROM node:22-bookworm-slim AS runner
+FROM node:25-bookworm-slim AS runner
 RUN apt-get update \
     && apt-get install -y --no-install-recommends openssl ca-certificates \
     && rm -rf /var/lib/apt/lists/*
