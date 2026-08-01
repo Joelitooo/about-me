@@ -32,7 +32,7 @@ ENV VITE_API_URL=$VITE_API_URL \
 RUN test -n "$VITE_API_URL" || (echo "VITE_API_URL build arg is required" >&2; exit 1)
 RUN pnpm --filter @portfolio/web build
 
-FROM nginx:1.27-alpine AS runner
+FROM nginx:1.31-alpine AS runner
 COPY infra/nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=builder /repo/apps/web/dist /usr/share/nginx/html
 EXPOSE 80
