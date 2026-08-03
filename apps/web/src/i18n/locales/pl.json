@@ -1,46 +1,81 @@
 {
   "nav": {
     "about": "O mnie",
-    "skills": "Umiejętności",
-    "projects": "Projekty",
-    "resume": "CV",
-    "contact": "Kontakt"
+    "work": "Praca",
+    "contact": "Kontakt",
+    "cv": "CV",
+    "menu": "Menu",
+    "closeMenu": "Zamknij menu"
   },
   "hero": {
-    "greeting": "Cześć, jestem",
-    "name": "Twoje Imię",
-    "tagline": "Full-stack developer tworzący nowoczesne aplikacje webowe.",
-    "cta": "Skontaktuj się"
+    "status": "Frontend engineer · Warszawa · otwarty na hybrid lub on-site",
+    "tagline": "Buduję interfejsy z myślą o produkcie — takie, które pomagają ludziom skończyć to, po co przyszli.",
+    "ctaWork": "Zobacz moją pracę",
+    "ctaCv": "Pobierz CV"
   },
   "about": {
     "title": "O mnie",
-    "body": "Napisz krótkie bio tutaj. Wspomnij o swoim doświadczeniu, zainteresowaniach i tym, nad czym obecnie pracujesz."
+    "lede": "Jestem frontend engineerem z czteroletnim doświadczeniem. Pracuję w eDreams nad narzędziami, po które sięgają podróżni, gdy z rezerwacją poszło coś nie tak.",
+    "p2": "Najbardziej cieszę się z rozpoznawania intencji w wyszukiwarce supportu: odczytać, o co komu naprawdę chodzi, i od razu skierować do właściwej opcji — zamiast listy domysłów do przekopywania. Mniej ślepych zaułków, mniej osób, które się poddają. Lubię takie problemy — wąski zakres, oczywista wartość w chwili użycia.",
+    "p3": "Studiowałem informatykę, na co dzień pracuję głównie w React i TypeScript, a nowe rzeczy biorę wtedy, gdy projekt ich naprawdę potrzebuje. Ta strona jest tego przykładem: zbudowałem i utrzymuję ją od frontu do backendu. Niedawno przeprowadziłem się do Warszawy i jestem otwarty na role frontendowe tutaj — hybrid lub on-site.",
+    "facts": {
+      "role": "Frontend Software Engineer · eDreams",
+      "location": "Warszawa · hybrid lub on-site",
+      "experience": "4 lata doświadczenia",
+      "education": "Informatyka (licencjat)",
+      "languages": "Português (ojczysty) · English (C1)",
+      "availability": "Otwarty na role frontendowe"
+    },
+    "experienceTitle": "Doświadczenie",
+    "cvUpdated": "CV zaktualizowane {{date}}",
+    "downloadCv": "Pobierz CV"
   },
-  "skills": {
-    "title": "Umiejętności"
+  "work": {
+    "title": "Praca",
+    "capabilities": "Umiejętności",
+    "frontend": "Frontend",
+    "backend": "Backend",
+    "ops": "Ops i narzędzia",
+    "closing": "Najpierw React, reszta w razie potrzeby.",
+    "projectsTitle": "Wybrane prace",
+    "viewRepo": "Zobacz repozytorium",
+    "viewLive": "Zobacz na żywo",
+    "projects": {
+      "aboutMe": {
+        "outcome": "Self-hosted portfolio fullstack, które projektuję, wdrażam i utrzymuję — SPA, API, Docker na Pi, tunnel i CI. Żeby udowodnić stack, nie wypełnić CV."
+      }
+    }
   },
-  "projects": {
-    "title": "Projekty",
-    "viewRepo": "Zobacz repozytorium"
-  },
-  "resume": {
-    "title": "CV",
-    "download": "Pobierz PDF"
+  "liveProof": {
+    "label": "Ta strona",
+    "stack": "React 19 · Vite · Tailwind v4 · NestJS · PostgreSQL · Docker Compose na Raspberry Pi · Cloudflare Tunnel · GitHub Actions CI/CD z Playwright E2E",
+    "repo": "Kod na GitHubie"
   },
   "contact": {
     "title": "Kontakt",
+    "invite": "Chcesz pogadać o roli albo projekcie? Napisz na maila albo użyj formularza.",
     "name": "Imię",
     "email": "Email",
     "message": "Wiadomość",
     "send": "Wyślij wiadomość",
     "success": "Wiadomość wysłana!",
-    "error": "Nie udało się wysłać. Spróbuj ponownie."
+    "error": "Nie udało się wysłać. Spróbuj ponownie.",
+    "required": "Wypełnij wszystkie pola.",
+    "invalidEmail": "Podaj prawidłowy email."
   },
   "footer": {
-    "copyright": "© {{year}} Twoje Imię. Wszelkie prawa zastrzeżone."
+    "copyright": "© {{year}} {{name}}. Wszelkie prawa zastrzeżone.",
+    "builtWith": "Zbudowane i utrzymywane od A do Z."
   },
   "theme": {
     "light": "Tryb jasny",
     "dark": "Tryb ciemny"
+  },
+  "palette": {
+    "paper": "Motyw papier",
+    "slate": "Motyw slate"
+  },
+  "a11y": {
+    "skipToContent": "Przejdź do treści"
   }
 }
