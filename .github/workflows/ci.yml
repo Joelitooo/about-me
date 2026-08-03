@@ -46,6 +46,9 @@ jobs:
       - name: Type check
         run: pnpm typecheck
 
+      - name: Build
+        run: pnpm build
+
       - name: Test with coverage
         run: pnpm test:coverage
 
