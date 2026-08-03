@@ -3,10 +3,13 @@ import { expect, test } from "@playwright/test";
 test("home page renders hero and navigation", async ({ page }) => {
   await page.goto("/");
   await expect(page.locator("h1")).toBeVisible();
-  await expect(page.getByRole("navigation", { name: "Main" })).toBeVisible();
-  await expect(page.getByRole("link", { name: "About" })).toBeVisible();
-  await expect(page.getByRole("link", { name: "Work" })).toBeVisible();
-  await expect(page.getByRole("link", { name: "Contact" })).toBeVisible();
+
+  // Scoped to the nav and exact: "Work" is a substring of the hero's "See my work" CTA.
+  const nav = page.getByRole("navigation", { name: "Main" });
+  await expect(nav).toBeVisible();
+  for (const label of ["About", "Work", "Contact"]) {
+    await expect(nav.getByRole("link", { name: label, exact: true })).toBeVisible();
+  }
 });
 
 test("dark mode toggle works", async ({ page }) => {

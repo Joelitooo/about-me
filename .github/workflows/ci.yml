@@ -46,6 +46,9 @@ jobs:
       - name: Type check
         run: pnpm typecheck
 
+      - name: Build
+        run: pnpm build
+
       - name: Test with coverage
         run: pnpm test:coverage
 
@@ -59,3 +62,89 @@ jobs:
             apps/*/coverage/
           if-no-files-found: ignore
           retention-days: 7
+
+  e2e:
+    name: Production-path E2E
+    needs: quality
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      POSTGRES_PASSWORD: ci-not-secret
+      APP_SECRET: ci-not-secret
+      CORS_ORIGIN: http://127.0.0.1:8080
+      VITE_API_URL: http://127.0.0.1:3000
+      VITE_UMAMI_URL: ""
+      VITE_UMAMI_WEBSITE_ID: ""
+      COMPOSE_PROFILES: ""
+    steps:
+      - name: Check out exact ref
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Set up Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+
+      - name: Activate pnpm 9
+        run: corepack prepare pnpm@9.0.0 --activate
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Chromium
+        run: pnpm --filter @portfolio/web exec playwright install --with-deps chromium
+
+      - name: Start CI stack
+        run: >-
+          docker compose
+          -p "portfolio-ci-${GITHUB_RUN_ID}"
+          -f infra/docker-compose.yml
+          -f infra/docker-compose.ci.yml
+          up -d --build --wait
+
+      - name: Run production-path E2E
+        env:
+          PLAYWRIGHT_BASE_URL: http://127.0.0.1:8080
+          PLAYWRIGHT_EXTERNAL_SERVER: "1"
+        run: pnpm test:e2e
+
+      - name: Capture sanitized Compose logs
+        if: failure()
+        run: >-
+          docker compose
+          -p "portfolio-ci-${GITHUB_RUN_ID}"
+          -f infra/docker-compose.yml
+          -f infra/docker-compose.ci.yml
+          logs --no-color
+          | sed -E
+          -e 's#(postgresql://[^:[:space:]]+:)[^@[:space:]]+#\1***#g'
+          -e 's/ci-not-secret/***/g'
+          > compose.log
+
+      - name: Upload E2E failure artifacts
+        if: failure()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: e2e-${{ github.run_id }}
+          path: |
+            apps/web/playwright-report/
+            apps/web/test-results/
+            compose.log
+          if-no-files-found: ignore
+          retention-days: 7
+
+      - name: Remove CI stack and volumes
+        if: always()
+        run: >-
+          docker compose
+          -p "portfolio-ci-${GITHUB_RUN_ID}"
+          -f infra/docker-compose.yml
+          -f infra/docker-compose.ci.yml
+          down -v --remove-orphans
