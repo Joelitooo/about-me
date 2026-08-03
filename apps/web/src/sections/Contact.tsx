@@ -1,8 +1,11 @@
 import { useMutation } from "@tanstack/react-query";
-import { useState, type FormEvent } from "react";
+import { useId, useState, type FormEvent } from "react";
 import { useTranslation } from "react-i18next";
 
+import { SectionHeader } from "../components/SectionHeader.js";
+import { trackEvent } from "../lib/analytics.js";
 import { postContactMessage } from "../lib/apiClient.js";
+import { SITE } from "../lib/site.js";
 
 function isValidEmail(email: string): boolean {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -10,13 +13,17 @@ function isValidEmail(email: string): boolean {
 
 export function Contact() {
   const { t } = useTranslation();
+  const errorId = useId();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
-  const [validationError, setValidationError] = useState<string | null>(null);
+  const [validationError, setValidationError] = useState<"required" | "email" | null>(null);
 
   const mutation = useMutation({
     mutationFn: postContactMessage,
+    onSuccess: () => {
+      trackEvent("contact_submit_success");
+    },
   });
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -39,12 +46,53 @@ export function Contact() {
     });
   }
 
-  return (
-    <section id="contact" className="scroll-mt-20 px-4 py-20">
-      <div className="mx-auto max-w-5xl">
-        <h2 className="mb-8 text-3xl font-bold tracking-tight text-ink">{t("contact.title")}</h2>
+  const showError = validationError !== null || mutation.isError;
+  const errorMessage =
+    validationError === "email"
+      ? t("contact.invalidEmail")
+      : validationError === "required"
+        ? t("contact.required")
+        : mutation.isError
+          ? t("contact.error")
+          : null;
 
-        <form className="max-w-xl space-y-4" onSubmit={handleSubmit} noValidate>
+  const inputClassName =
+    "w-full rounded-md border border-line bg-surface px-3 py-2 text-ink outline-none transition-[border-color] duration-150 focus-visible:border-accent";
+
+  return (
+    <SectionHeader id="contact" index="03 / CONTACT" title={t("contact.title")}>
+      <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
+        <div className="space-y-5">
+          <p className="max-w-[40ch] text-lg leading-relaxed text-ink-soft">
+            {t("contact.invite")}
+          </p>
+          <a
+            href={`mailto:${SITE.email}`}
+            className="inline-block font-mono text-sm text-accent transition-colors duration-150 hover:text-accent-hover"
+          >
+            {SITE.email}
+          </a>
+          <div className="flex flex-wrap gap-4 font-mono text-sm">
+            <a
+              href={SITE.links.github}
+              target="_blank"
+              rel="noreferrer"
+              className="text-ink-soft transition-colors duration-150 hover:text-ink"
+            >
+              GitHub
+            </a>
+            <a
+              href={SITE.links.linkedin}
+              target="_blank"
+              rel="noreferrer"
+              className="text-ink-soft transition-colors duration-150 hover:text-ink"
+            >
+              LinkedIn
+            </a>
+          </div>
+        </div>
+
+        <form className="space-y-4" onSubmit={handleSubmit} noValidate>
           <div>
             <label htmlFor="contact-name" className="mb-1 block text-sm font-medium text-ink">
               {t("contact.name")}
@@ -54,7 +102,9 @@ export function Contact() {
               name="name"
               value={name}
               onChange={(event) => setName(event.target.value)}
-              className="w-full rounded-md border border-ink/15 bg-surface px-3 py-2 text-ink outline-none focus:border-accent"
+              className={inputClassName}
+              aria-invalid={validationError === "required"}
+              aria-describedby={showError ? errorId : undefined}
               required
             />
           </div>
@@ -69,7 +119,9 @@ export function Contact() {
               type="email"
               value={email}
               onChange={(event) => setEmail(event.target.value)}
-              className="w-full rounded-md border border-ink/15 bg-surface px-3 py-2 text-ink outline-none focus:border-accent"
+              className={inputClassName}
+              aria-invalid={validationError !== null}
+              aria-describedby={showError ? errorId : undefined}
               required
             />
           </div>
@@ -84,36 +136,33 @@ export function Contact() {
               rows={5}
               value={message}
               onChange={(event) => setMessage(event.target.value)}
-              className="w-full rounded-md border border-ink/15 bg-surface px-3 py-2 text-ink outline-none focus:border-accent"
+              className={inputClassName}
+              aria-invalid={validationError === "required"}
+              aria-describedby={showError ? errorId : undefined}
               required
             />
           </div>
 
-          {validationError ? (
-            <p className="text-sm text-red-600" role="alert">
-              {validationError === "email" ? t("contact.email") : t("contact.error")}
+          {errorMessage ? (
+            <p id={errorId} className="text-sm text-danger" role="alert">
+              {errorMessage}
             </p>
           ) : null}
           {mutation.isSuccess ? (
-            <p className="text-sm text-green-700" role="status">
+            <p className="text-sm text-success" role="status">
               {t("contact.success")}
-            </p>
-          ) : null}
-          {mutation.isError ? (
-            <p className="text-sm text-red-600" role="alert">
-              {t("contact.error")}
             </p>
           ) : null}
 
           <button
             type="submit"
             disabled={mutation.isPending}
-            className="rounded-md bg-accent px-5 py-3 text-sm font-semibold text-white transition hover:bg-accent-hover disabled:opacity-60"
+            className="rounded-md bg-accent px-5 py-3 text-sm font-semibold text-on-accent transition-[background-color,color] duration-150 hover:bg-accent-hover disabled:opacity-60"
           >
             {t("contact.send")}
           </button>
         </form>
       </div>
-    </section>
+    </SectionHeader>
   );
 }

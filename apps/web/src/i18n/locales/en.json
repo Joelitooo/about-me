@@ -1,46 +1,81 @@
 {
   "nav": {
     "about": "About",
-    "skills": "Skills",
-    "projects": "Projects",
-    "resume": "Resume",
-    "contact": "Contact"
+    "work": "Work",
+    "contact": "Contact",
+    "cv": "CV",
+    "menu": "Menu",
+    "closeMenu": "Close menu"
   },
   "hero": {
-    "greeting": "Hi, I'm",
-    "name": "Your Name",
-    "tagline": "Full-stack developer building modern web applications.",
-    "cta": "Get in touch"
+    "status": "Frontend engineer · Warsaw · open to hybrid or on-site",
+    "tagline": "I build product-minded interfaces that help people finish what they came to do.",
+    "ctaWork": "See my work",
+    "ctaCv": "Download CV"
   },
   "about": {
-    "title": "About Me",
-    "body": "Write a short bio here. Mention your background, interests, and what you're currently working on."
+    "title": "About",
+    "lede": "I'm a frontend engineer with four years of experience, currently at eDreams, working on the tools travellers reach for when something has gone wrong with a booking.",
+    "p2": "The work I'm most pleased with there is intent recognition in the support search bar: reading what someone actually means and sending them straight to the right support option, instead of handing them a list of guesses to sift through. Fewer dead ends, fewer people giving up. That's the kind of problem I like — narrow in scope, obvious in value the moment you use it.",
+    "p3": "I studied Computer Science, work mostly in React and TypeScript, and I'm comfortable picking up whatever a project actually needs. This site is a case in point: I built and operate the whole thing, front to back. I recently moved to Warsaw and I'm open to frontend roles here, hybrid or on-site.",
+    "facts": {
+      "role": "Frontend Software Engineer · eDreams",
+      "location": "Warsaw, Poland · hybrid or on-site",
+      "experience": "4 years of experience",
+      "education": "BSc Computer Science",
+      "languages": "Português (native) · English (C1)",
+      "availability": "Open to frontend roles"
+    },
+    "experienceTitle": "Experience",
+    "cvUpdated": "CV last updated {{date}}",
+    "downloadCv": "Download CV"
   },
-  "skills": {
-    "title": "Skills"
+  "work": {
+    "title": "Work",
+    "capabilities": "Capabilities",
+    "frontend": "Frontend",
+    "backend": "Backend",
+    "ops": "Ops & tooling",
+    "closing": "React first, adaptable to the rest.",
+    "projectsTitle": "Selected work",
+    "viewRepo": "View repo",
+    "viewLive": "View live",
+    "projects": {
+      "aboutMe": {
+        "outcome": "A self-hosted fullstack portfolio I design, ship, and operate — SPA, API, Docker on a Pi, tunnel, and CI. Built to prove the stack, not pad a resume."
+      }
+    }
   },
-  "projects": {
-    "title": "Projects",
-    "viewRepo": "View repo"
-  },
-  "resume": {
-    "title": "Resume",
-    "download": "Download PDF"
+  "liveProof": {
+    "label": "This site",
+    "stack": "React 19 · Vite · Tailwind v4 · NestJS · PostgreSQL · Docker Compose on a Raspberry Pi · Cloudflare Tunnel · GitHub Actions CI/CD with Playwright E2E",
+    "repo": "Source on GitHub"
   },
   "contact": {
     "title": "Contact",
+    "invite": "Want to talk about a role or a project? Email me, or use the form.",
     "name": "Name",
     "email": "Email",
     "message": "Message",
     "send": "Send message",
     "success": "Message sent!",
-    "error": "Failed to send. Please try again."
+    "error": "Failed to send. Please try again.",
+    "required": "Please fill in all fields.",
+    "invalidEmail": "Please enter a valid email."
   },
   "footer": {
-    "copyright": "© {{year}} Your Name. All rights reserved."
+    "copyright": "© {{year}} {{name}}. All rights reserved.",
+    "builtWith": "Built and operated end to end."
   },
   "theme": {
     "light": "Light mode",
     "dark": "Dark mode"
+  },
+  "palette": {
+    "paper": "Paper theme",
+    "slate": "Slate theme"
+  },
+  "a11y": {
+    "skipToContent": "Skip to content"
   }
 }

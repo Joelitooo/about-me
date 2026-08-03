@@ -1,15 +1,19 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-palette="paper">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Portfolio</title>
+    <title>Joel Silva</title>
     <script>
       (() => {
-        const stored = localStorage.getItem("theme");
+        const storedTheme = localStorage.getItem("theme");
         const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-        const shouldBeDark = stored === "dark" || (stored === null && prefersDark);
+        const shouldBeDark = storedTheme === "dark" || (storedTheme === null && prefersDark);
         document.documentElement.classList.toggle("dark", shouldBeDark);
+
+        const storedPalette = localStorage.getItem("palette");
+        const palette = storedPalette === "slate" ? "slate" : "paper";
+        document.documentElement.setAttribute("data-palette", palette);
       })();
     </script>
   </head>

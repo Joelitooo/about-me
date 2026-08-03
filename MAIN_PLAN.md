@@ -4,25 +4,28 @@ overview: "Build a scalable TypeScript portfolio as a monorepo: a Vite + React S
 todos:
   - id: phase0
     content: "Scaffold monorepo: git init, pnpm workspaces, tsconfig.base.json, ESLint/Prettier, .gitignore, README, packages/shared"
-    status: pending
+    status: completed
   - id: phase1
     content: "Build apps/web: Vite React TS SPA with Tailwind, react-router, i18next (EN/PT/PL), dark mode, sections (hero/about/skills/projects/contact), typed API client"
-    status: pending
+    status: completed
   - id: phase2
     content: "Build apps/api: NestJS + Prisma + PostgreSQL, config, validation, helmet, rate limiting, Health + Contact modules, initial migration"
-    status: pending
+    status: completed
   - id: phase3
     content: Add self-hosted Umami analytics and wire the tracking script into apps/web
-    status: pending
+    status: completed
   - id: phase4
     content: "Dockerize: web.Dockerfile (nginx), api.Dockerfile (NestJS), docker-compose.yml with postgres/umami/cloudflared, .env, ARM64 build"
-    status: pending
+    status: completed
   - id: phase5
     content: "Deploy on the Pi: install Docker, configure Cloudflare Tunnel ingress + domain DNS, docker compose up"
-    status: pending
+    status: completed
   - id: phase6
     content: "CI/CD and hardening: GitHub Actions ARM64 build/deploy, Uptime Kuma monitoring, prep auth layer"
-    status: pending
+    status: completed
+  - id: phase7
+    content: "Frontend identity redesign: paper/slate palettes, editorial layout, merged Work/About, real copy, Umami CTAs, a11y pass, live-proof strip"
+    status: in_progress
 isProject: false
 ---
 
@@ -59,13 +62,14 @@ Cloudflare Tunnel ingress maps subdomains straight to containers, so no separate
 
 Mark a phase `[x]` once you've reviewed and accepted it as done. I'll leave these unchecked until you tell me to check them off. Each phase has its own detailed plan in [`phases/`](phases/).
 
-- [ ] **Phase 0** - [Repo and tooling scaffolding](phases/phase-0/plan.md) ([spec](phases/phase-0/spec.md))
-- [ ] **Phase 1** - [Frontend SPA (`apps/web`)](phases/phase-1/plan.md) ([spec](phases/phase-1/spec.md))
-- [ ] **Phase 2** - [Backend API (`apps/api`)](phases/phase-2/plan.md) ([spec](phases/phase-2/spec.md))
-- [ ] **Phase 3** - [Analytics (Umami)](phases/phase-3/plan.md) ([spec](phases/phase-3/spec.md))
-- [ ] **Phase 4** - [Dockerization (`infra`)](phases/phase-4/plan.md) ([spec](phases/phase-4/spec.md))
-- [ ] **Phase 5** - [Deployment on the Pi + Cloudflare Tunnel](phases/phase-5/plan.md) ([spec](phases/phase-5/spec.md))
-- [ ] **Phase 6** - [CI/CD and production hardening](phases/phase-6/plan.md) ([spec](phases/phase-6/spec.md))
+- [x] **Phase 0** - [Repo and tooling scaffolding](phases/phase-0/plan.md) ([spec](phases/phase-0/spec.md))
+- [x] **Phase 1** - [Frontend SPA (`apps/web`)](phases/phase-1/plan.md) ([spec](phases/phase-1/spec.md))
+- [x] **Phase 2** - [Backend API (`apps/api`)](phases/phase-2/plan.md) ([spec](phases/phase-2/spec.md))
+- [x] **Phase 3** - [Analytics (Umami)](phases/phase-3/plan.md) ([spec](phases/phase-3/spec.md))
+- [x] **Phase 4** - [Dockerization (`infra`)](phases/phase-4/plan.md) ([spec](phases/phase-4/spec.md))
+- [x] **Phase 5** - [Deployment on the Pi + Cloudflare Tunnel](phases/phase-5/plan.md) ([spec](phases/phase-5/spec.md))
+- [x] **Phase 6** - [CI/CD and production hardening](phases/phase-6/plan.md) ([spec](phases/phase-6/spec.md))
+- [ ] **Phase 7** - [Frontend identity redesign (`apps/web`)](phases/phase-7/plan.md)
 
 ### Phases
 
@@ -78,6 +82,7 @@ Detailed, self-contained plans live in the [`phases/`](phases/) directory. This 
 - [Phase 4 - Dockerization (`infra`)](phases/phase-4/plan.md) — [technical spec](phases/phase-4/spec.md)
 - [Phase 5 - Deployment on the Pi + Cloudflare Tunnel](phases/phase-5/plan.md) — [technical spec](phases/phase-5/spec.md)
 - [Phase 6 - CI/CD and production hardening](phases/phase-6/plan.md) — [technical spec](phases/phase-6/spec.md)
+- [Phase 7 - Frontend identity redesign (`apps/web`)](phases/phase-7/plan.md) — [Uptime Kuma research (deferred)](phases/phase-7/UptimeKumaFeatureAnalisys.md)
 
 ### Testing strategy
 
