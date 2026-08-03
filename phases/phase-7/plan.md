@@ -408,27 +408,27 @@ The homepage is Hero → About+CV → Work → Live proof → Contact; the navba
 
 ## 10. Task checklist
 
-- [ ] Branch created
-- [ ] `@fontsource-variable` Fraunces + Inter + JetBrains Mono self-hosted, latin-ext subset
-- [ ] `index.css` restructured into paper light/dark + slate light/dark, no bare `.dark` block left
-- [ ] `ThemeProvider` palette state + `data-palette` + `localStorage`; no-flash script sets both axes
-- [ ] Palette switch button in navbar with its own distinct accessible name
-- [ ] Contrast verified AA across all four palette/mode combinations
-- [ ] **BUG-1:** `--color-on-accent` in all four sets; every `text-white` on accent removed
-- [ ] **BUG-2:** `<html lang>` follows `i18n.resolvedLanguage`
-- [ ] `src/lib/site.ts` created; hardcoded name, `"Portfolio"`, and `"Your Name"` all gone; `hero.name` key deleted
-- [ ] 24px global gutter; navbar full-bleed; `SectionHeader` rail
-- [ ] Navbar reduced to About/Work/Contact plus CV button; theme toggle keeps its accessible name
-- [ ] Portrait moved to `src/assets`, cropped, WebP + fallback, under 150 KB, meaningful `alt`
-- [ ] Hero: photo, status line in its own i18n key, display-scale name, gradient removed
-- [ ] About + Resume merged; facts rail with PT/EN only; experience list incl. Swogo internship; `Resume.tsx` deleted
-- [ ] Skills + Projects merged into `Work.tsx`; grouped capabilities; project rows
-- [ ] Live-proof strip with static facts, de-duplicated against the project row
-- [ ] Contact restyled, logic untouched; `mailto:` from `SITE.email`; per-palette error colour
-- [ ] Footer name, links, and email
-- [ ] `analytics.ts` no-op-safe; events wired
-- [ ] Skip link, focus-visible rings, `aria-current`, Escape-to-close, reduced-motion
-- [ ] `public/resume.pdf` tracked in git and linked from hero, About, and navbar
+- [x] Branch created
+- [x] `@fontsource-variable` Fraunces + Inter + JetBrains Mono self-hosted, latin-ext subset
+- [x] `index.css` restructured into paper light/dark + slate light/dark, no bare `.dark` block left
+- [x] `ThemeProvider` palette state + `data-palette` + `localStorage`; no-flash script sets both axes
+- [x] Palette switch button in navbar with its own distinct accessible name
+- [x] Contrast verified AA across all four palette/mode combinations
+- [x] **BUG-1:** `--color-on-accent` in all four sets; every `text-white` on accent removed
+- [x] **BUG-2:** `<html lang>` follows `i18n.resolvedLanguage`
+- [x] `src/lib/site.ts` created; hardcoded name, `"Portfolio"`, and `"Your Name"` all gone; `hero.name` key deleted
+- [x] 24px global gutter; navbar full-bleed; `SectionHeader` rail
+- [x] Navbar reduced to About/Work/Contact plus CV button; theme toggle keeps its accessible name
+- [x] Portrait moved to `src/assets`, cropped, WebP + fallback, under 150 KB, meaningful `alt`
+- [x] Hero: photo, status line in its own i18n key, display-scale name, gradient removed
+- [x] About + Resume merged; facts rail with PT/EN only; experience list incl. Swogo internship; `Resume.tsx` deleted
+- [x] Skills + Projects merged into `Work.tsx`; grouped capabilities; project rows
+- [x] Live-proof strip with static facts, de-duplicated against the project row
+- [x] Contact restyled, logic untouched; `mailto:` from `SITE.email`; per-palette error colour
+- [x] Footer name, links, and email
+- [x] `analytics.ts` no-op-safe; events wired
+- [x] Skip link, focus-visible rings, `aria-current`, Escape-to-close, reduced-motion
+- [x] `public/resume.pdf` tracked in git and linked from hero, About, and navbar
 - [ ] Bio and real projects in `en.json`; PT reviewed by you; PL reviewed by native speaker
-- [ ] `Hero.test.tsx` and E2E specs updated and passing
+- [x] `Hero.test.tsx` and E2E specs updated and passing
 - [ ] Full verification suite green; `MAIN_PLAN.md` updated; PR opened
