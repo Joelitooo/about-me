@@ -7,6 +7,7 @@ import {
   ReactFlowProvider,
   useNodesState,
   type Edge,
+  type EdgeTypes,
   type NodeChange,
   type NodeTypes,
   type OnSelectionChangeParams,
@@ -16,9 +17,11 @@ import { useTranslation } from "react-i18next";
 
 import { trackEvent } from "../../lib/analytics.js";
 import { useTheme } from "../../theme/ThemeProvider.js";
+import { ArchitectureLoopEdge } from "./ArchitectureLoopEdge.js";
 import { ArchitectureNode } from "./ArchitectureNode.js";
 import {
   ARCHITECTURE_EDGES,
+  ARCHITECTURE_LAYOUT_ID,
   ARCHITECTURE_NODES,
   DEFAULT_SELECTED_NODE_ID,
   isArchitectureNodeId,
@@ -28,6 +31,10 @@ import {
 
 const nodeTypes: NodeTypes = {
   architecture: ArchitectureNode,
+};
+
+const edgeTypes: EdgeTypes = {
+  architectureLoop: ArchitectureLoopEdge,
 };
 
 function highlightEdges(selectedId: ArchitectureNodeId): Edge[] {
@@ -108,7 +115,7 @@ function ArchitectureCanvas() {
     <div>
       <p className="mb-3 text-sm text-ink-soft">{t("work.architecture.hint")}</p>
       <div
-        className="architecture-graph h-[22rem] w-full overflow-hidden border border-line bg-surface sm:h-[28rem] lg:h-[32rem]"
+        className="architecture-graph h-[26rem] w-full overflow-hidden border border-line bg-surface sm:h-[32rem] lg:h-[40rem]"
         role="region"
         aria-label={t("work.architecture.hint")}
       >
@@ -116,13 +123,14 @@ function ArchitectureCanvas() {
           nodes={nodes}
           edges={edges}
           nodeTypes={nodeTypes}
+          edgeTypes={edgeTypes}
           onNodesChange={handleNodesChange}
           onSelectionChange={onSelectionChange}
           colorMode={theme}
           ariaLabelConfig={ariaLabelConfig}
           fitView
-          fitViewOptions={{ padding: 0.18 }}
-          minZoom={0.45}
+          fitViewOptions={{ padding: 0.12, minZoom: 0.28 }}
+          minZoom={0.28}
           maxZoom={1.6}
           nodesDraggable={false}
           nodesConnectable={false}
@@ -144,8 +152,12 @@ function ArchitectureCanvas() {
               fontSize: 10,
               fontFamily: "var(--font-mono)",
             },
-            labelBgStyle: { fill: "var(--color-surface)" },
-            labelBgPadding: [4, 6],
+            labelBgStyle: {
+              fill: "var(--color-surface)",
+              stroke: "var(--color-line)",
+              strokeWidth: 1,
+            },
+            labelBgPadding: [7, 10],
             labelBgBorderRadius: 4,
           }}
         >
@@ -175,7 +187,7 @@ function ArchitectureCanvas() {
 
 export function ArchitectureGraph() {
   return (
-    <ReactFlowProvider>
+    <ReactFlowProvider key={ARCHITECTURE_LAYOUT_ID}>
       <ArchitectureCanvas />
     </ReactFlowProvider>
   );

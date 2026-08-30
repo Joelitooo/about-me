@@ -1,8 +1,24 @@
 import { Handle, Position, type NodeProps } from "@xyflow/react";
 
-import type { ArchitectureFlowNode } from "./architecture.js";
+import type { ArchitectureFlowNode, ArchitectureHandleSide } from "./architecture.js";
+
+const HANDLE_POSITION: Record<ArchitectureHandleSide, Position> = {
+  left: Position.Left,
+  right: Position.Right,
+  top: Position.Top,
+  bottom: Position.Bottom,
+};
 
 export function ArchitectureNode({ data, selected }: NodeProps<ArchitectureFlowNode>) {
+  const targetHandles = data.targetHandles ?? ["left"];
+  const sourceHandles = data.sourceHandles ?? ["right"];
+
+  function handleStyle(side: ArchitectureHandleSide, type: "source" | "target") {
+    if (!targetHandles.includes(side) || !sourceHandles.includes(side)) return undefined;
+    const offset = type === "source" ? "32%" : "68%";
+    return side === "left" || side === "right" ? { top: offset } : { left: offset };
+  }
+
   return (
     <div
       className={`w-40 cursor-pointer rounded-md border bg-canvas px-3 py-2 transition-colors duration-150 ${
@@ -20,8 +36,26 @@ export function ArchitectureNode({ data, selected }: NodeProps<ArchitectureFlowN
           {data.subtitle}
         </p>
       ) : null}
-      <Handle type="target" position={Position.Left} isConnectable={false} />
-      <Handle type="source" position={Position.Right} isConnectable={false} />
+      {targetHandles.map((side) => (
+        <Handle
+          key={`target-${side}`}
+          id={`target-${side}`}
+          type="target"
+          position={HANDLE_POSITION[side]}
+          isConnectable={false}
+          style={handleStyle(side, "target")}
+        />
+      ))}
+      {sourceHandles.map((side) => (
+        <Handle
+          key={`source-${side}`}
+          id={`source-${side}`}
+          type="source"
+          position={HANDLE_POSITION[side]}
+          isConnectable={false}
+          style={handleStyle(side, "source")}
+        />
+      ))}
     </div>
   );
 }
