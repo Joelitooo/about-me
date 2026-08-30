@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { SectionHeader } from "../components/SectionHeader.js";
 import { trackEvent } from "../lib/analytics.js";
 import { SITE } from "../lib/site.js";
+import { ArchitectureGraph } from "./architecture/ArchitectureGraph.js";
 
 const CAPABILITIES = {
   frontend: ["React", "TypeScript", "Vite", "Tailwind CSS", "i18next"],
@@ -111,6 +112,9 @@ export function Work() {
                       {t("work.viewLive")}
                     </a>
                   ) : null}
+                </div>
+                <div className="min-w-0 lg:col-span-2">
+                  <ArchitectureGraph />
                 </div>
               </li>
             ))}

@@ -44,6 +44,57 @@
       "aboutMe": {
         "outcome": "A self-hosted fullstack portfolio I design, ship, and operate — SPA, API, Docker on a Pi, tunnel, and CI. Built to prove the stack, not pad a resume."
       }
+    },
+    "architecture": {
+      "hint": "Click a box to inspect it. Pinch or use the controls to zoom. Scrolling still moves the page.",
+      "detailLabel": "Selected architecture detail",
+      "controls": {
+        "zoomIn": "Zoom in",
+        "zoomOut": "Zoom out",
+        "fitView": "Fit view"
+      },
+      "nodes": {
+        "gha": {
+          "title": "GitHub Actions",
+          "body": "Every push to main runs checks, builds ARM64 images, and publishes them to GHCR so the Pi can pull a known artifact."
+        },
+        "ghcr": {
+          "title": "GHCR",
+          "body": "The registry that holds the web and API images. Deploy is a pull on the Pi, not a copy over SSH."
+        },
+        "pi": {
+          "title": "Raspberry Pi",
+          "body": "An ARM64 Ubuntu box at home running Docker Compose. It only makes outbound connections — nothing is exposed on the router."
+        },
+        "browser": {
+          "title": "Browser",
+          "body": "A visitor loads joelitoo.com over HTTPS. Cloudflare terminates TLS and forwards the request through the tunnel."
+        },
+        "tunnel": {
+          "title": "Cloudflare Tunnel",
+          "body": "The Pi opens an outbound tunnel; nothing is port-forwarded on the home router; Cloudflare maps hostnames to containers."
+        },
+        "web": {
+          "title": "web (nginx)",
+          "body": "A static Vite build served by nginx. Cloudflare routes joelitoo.com to this container."
+        },
+        "api": {
+          "title": "api (NestJS)",
+          "body": "Health checks and the contact form. Cloudflare routes api.joelitoo.com to this container."
+        },
+        "umami": {
+          "title": "Umami",
+          "body": "Self-hosted analytics at analytics.joelitoo.com. Page views and custom events, no third-party tracker."
+        },
+        "pgApp": {
+          "title": "Postgres (app)",
+          "body": "The NestJS API's database, reached through Prisma. Same Postgres server, a separate database."
+        },
+        "pgUmami": {
+          "title": "Postgres (Umami)",
+          "body": "Umami's own database on the same Postgres instance, isolated from the app data."
+        }
+      }
     }
   },
   "liveProof": {
