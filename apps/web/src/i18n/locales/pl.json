@@ -44,6 +44,57 @@
       "aboutMe": {
         "outcome": "Self-hosted portfolio fullstack, które projektuję, wdrażam i utrzymuję — SPA, API, Docker na Pi, tunnel i CI. Żeby udowodnić stack, nie wypełnić CV."
       }
+    },
+    "architecture": {
+      "hint": "Kliknij ramkę, żeby zobaczyć opis. Pinch albo kontrolki służą do zoomu. Scroll nadal przewija stronę.",
+      "detailLabel": "Szczegóły architektury",
+      "controls": {
+        "zoomIn": "Powiększ",
+        "zoomOut": "Pomniejsz",
+        "fitView": "Dopasuj widok"
+      },
+      "nodes": {
+        "gha": {
+          "title": "GitHub Actions",
+          "body": "Przy każdym pushu na main CI odpala checki, buduje obrazy ARM64 i publikuje je w GHCR, żeby Pi mogło je ściągnąć."
+        },
+        "ghcr": {
+          "title": "GHCR",
+          "body": "Rejestr z obrazami web i API. Deploy to pull na Pi, nie kopiowanie po SSH."
+        },
+        "pi": {
+          "title": "Raspberry Pi",
+          "body": "Ubuntu Server ARM64 w domu, na Docker Compose. Tylko połączenia wychodzące — nic nie jest wystawione na routerze."
+        },
+        "browser": {
+          "title": "Browser",
+          "body": "Odwiedzający otwiera joelitoo.com po HTTPS. Cloudflare kończy TLS i przekazuje request przez tunnel."
+        },
+        "tunnel": {
+          "title": "Cloudflare Tunnel",
+          "body": "Pi otwiera wychodzący tunnel; nic nie jest przekierowane na domowym routerze; Cloudflare mapuje hostname'y na kontenery."
+        },
+        "web": {
+          "title": "web (nginx)",
+          "body": "Statyczny build Vite tej SPA, serwowany przez nginx. Cloudflare kieruje joelitoo.com do tego kontenera."
+        },
+        "api": {
+          "title": "api (NestJS)",
+          "body": "Health checki i formularz kontaktowy. Cloudflare kieruje api.joelitoo.com do tego kontenera."
+        },
+        "umami": {
+          "title": "Umami",
+          "body": "Self-hosted analytics na analytics.joelitoo.com. Page view i eventy, bez trackerów trzecich."
+        },
+        "pgApp": {
+          "title": "Postgres (app)",
+          "body": "Baza API NestJS, przez Prisma. Ten sam Postgres, osobna baza."
+        },
+        "pgUmami": {
+          "title": "Postgres (Umami)",
+          "body": "Baza Umami na tym samym Postgresie, oddzielona od danych aplikacji."
+        }
+      }
     }
   },
   "liveProof": {

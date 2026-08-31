@@ -28,3 +28,15 @@ test("palette toggle persists on the document", async ({ page }) => {
   await page.getByRole("button", { name: /slate theme|motyw slate|tema ardósia/i }).click();
   await expect(html).toHaveAttribute("data-palette", "slate");
 });
+
+test("work architecture graph is click-to-inspect", async ({ page }) => {
+  await page.goto("/");
+  const work = page.locator("#work");
+  await work.scrollIntoViewIfNeeded();
+  await expect(work.getByRole("heading", { name: "Portfolio monorepo" })).toBeVisible();
+
+  const canvas = work.locator(".react-flow");
+  await expect(canvas).toBeVisible();
+  await work.locator('.react-flow__node[data-id="web"]').click();
+  await expect(work.getByText(/static Vite build served by nginx/i)).toBeVisible();
+});

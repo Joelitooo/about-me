@@ -44,6 +44,57 @@
       "aboutMe": {
         "outcome": "Um portefólio fullstack self-hosted que desenho, publico e opero — SPA, API, Docker num Pi, tunnel e CI. Feito para provar a stack, não para encher o CV."
       }
+    },
+    "architecture": {
+      "hint": "Clique numa caixa para inspecionar. Use o gesto de pinça ou os controlos para o zoom. O scroll continua a mover a página.",
+      "detailLabel": "Detalhe da arquitetura",
+      "controls": {
+        "zoomIn": "Aumentar zoom",
+        "zoomOut": "Diminuir zoom",
+        "fitView": "Ajustar à vista"
+      },
+      "nodes": {
+        "gha": {
+          "title": "GitHub Actions",
+          "body": "Em cada push para main, a CI corre verificações, constrói imagens ARM64 e publica-as no GHCR para o Pi as puxar."
+        },
+        "ghcr": {
+          "title": "GHCR",
+          "body": "O registo onde ficam as imagens do web e da API. O deploy é um pull no Pi, não uma cópia por SSH."
+        },
+        "pi": {
+          "title": "Raspberry Pi",
+          "body": "Uma máquina Ubuntu ARM64 em casa, a correr Docker Compose. Só faz ligações de saída — nada fica aberto no router."
+        },
+        "browser": {
+          "title": "Browser",
+          "body": "Um visitante abre joelitoo.com em HTTPS. A Cloudflare termina o TLS e envia o pedido pelo túnel."
+        },
+        "tunnel": {
+          "title": "Cloudflare Tunnel",
+          "body": "O Pi abre um túnel de saída; nada é reencaminhado no router de casa; a Cloudflare mapeia os hostnames para os contentores."
+        },
+        "web": {
+          "title": "web (nginx)",
+          "body": "O build estático Vite desta SPA, servido pelo nginx. A Cloudflare envia joelitoo.com para este contentor."
+        },
+        "api": {
+          "title": "api (NestJS)",
+          "body": "Health checks e o formulário de contacto. A Cloudflare envia api.joelitoo.com para este contentor."
+        },
+        "umami": {
+          "title": "Umami",
+          "body": "Analytics self-hosted em analytics.joelitoo.com. Page views e eventos, sem tracker de terceiros."
+        },
+        "pgApp": {
+          "title": "Postgres (app)",
+          "body": "A base de dados da API NestJS, acedida com Prisma. O mesmo servidor Postgres, uma base de dados à parte."
+        },
+        "pgUmami": {
+          "title": "Postgres (Umami)",
+          "body": "A base de dados do Umami, no mesmo Postgres, isolada dos dados da aplicação."
+        }
+      }
     }
   },
   "liveProof": {
