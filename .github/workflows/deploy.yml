@@ -131,3 +131,5 @@ jobs:
           test "$(curl --fail --show-error --silent --retry 5 --retry-delay 5 https://joelitoo.com/healthz)" = "ok"
           curl --fail --show-error --silent --retry 5 --retry-delay 5 https://api.joelitoo.com/health |
             grep --fixed-strings --quiet '"status":"ok"'
+          curl --fail --show-error --silent --retry 5 --retry-delay 5 https://api.joelitoo.com/ping |
+            grep --fixed-strings --quiet 'pong'

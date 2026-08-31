@@ -6,6 +6,7 @@ import { ThrottlerGuard, ThrottlerModule } from "@nestjs/throttler";
 import { getClientIp } from "./common/client-ip";
 import { ContactModule } from "./contact/contact.module";
 import { HealthModule } from "./health/health.module";
+import { PingModule } from "./ping/ping.module";
 import { PrismaModule } from "./prisma/prisma.module";
 
 @Module({
@@ -26,6 +27,7 @@ import { PrismaModule } from "./prisma/prisma.module";
     }),
     PrismaModule,
     HealthModule,
+    PingModule,
     ContactModule,
   ],
   providers: [
