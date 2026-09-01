@@ -35,7 +35,7 @@ export function Work() {
   const { t } = useTranslation();
 
   return (
-    <SectionHeader id="work" index="02 / WORK" title={t("work.title")}>
+    <SectionHeader id="work" index="02 / WORK" title={t("work.title")} className="!pb-0">
       <div className="space-y-14">
         <div>
           <h3 className="mb-4 font-mono text-xs uppercase tracking-[0.18em] text-ink-soft">
@@ -71,7 +71,7 @@ export function Work() {
             {PROJECTS.map((project) => (
               <li
                 key={project.slug}
-                className="grid gap-4 border-b border-line py-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end"
+                className="grid gap-4 py-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end"
               >
                 <div>
                   <h4 className="mb-2 font-display text-2xl font-semibold tracking-tight text-ink">

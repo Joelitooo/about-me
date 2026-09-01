@@ -97,11 +97,6 @@
       }
     }
   },
-  "liveProof": {
-    "label": "Ta strona",
-    "stack": "React 19 · Vite · Tailwind v4 · NestJS · PostgreSQL · Docker Compose na Raspberry Pi · Cloudflare Tunnel · GitHub Actions CI/CD z Playwright E2E",
-    "repo": "Kod na GitHubie"
-  },
   "contact": {
     "title": "Kontakt",
     "invite": "Chcesz pogadać o roli albo projekcie? Napisz na maila albo użyj formularza.",
