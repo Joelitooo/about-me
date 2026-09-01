@@ -40,6 +40,12 @@ describe("API (e2e)", () => {
     expect(typeof res.body.uptimeSeconds).toBe("number");
   });
 
+  it("GET /ping returns pong as HTML", async () => {
+    const res = await request(app.getHttpServer()).get("/ping").expect(200);
+    expect(res.headers["content-type"]).toMatch(/text\/html/);
+    expect(res.text).toContain("pong");
+  });
+
   it("POST /contact validates and persists", async () => {
     await request(app.getHttpServer())
       .post("/contact")
