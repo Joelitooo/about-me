@@ -93,8 +93,57 @@ body {
   }
 }
 
-.hero-photo-frame {
+.hero-intro {
   animation: hero-settle 500ms ease-out;
+}
+
+/* The logo scatter is a watermark: faded out behind the headline by a radial
+   hole, and tinted with the ink token so it follows both palettes and dark mode. */
+.tech-backdrop {
+  --tech-scale: 0.6;
+  -webkit-mask-image: radial-gradient(ellipse 64% 44% at 50% 50%, transparent 22%, #000 82%);
+  mask-image: radial-gradient(ellipse 64% 44% at 50% 50%, transparent 22%, #000 82%);
+}
+
+@media (min-width: 640px) {
+  .tech-backdrop {
+    --tech-scale: 0.82;
+  }
+}
+
+@media (min-width: 1024px) {
+  .tech-backdrop {
+    --tech-scale: 1;
+  }
+}
+
+.tech-backdrop__item {
+  transform: translate(-50%, -50%);
+  animation: tech-float var(--tech-duration, 10s) ease-in-out var(--tech-delay, 0s) infinite
+    alternate;
+}
+
+.tech-backdrop__logo {
+  width: calc(var(--tech-size) * var(--tech-scale));
+  height: calc(var(--tech-size) * var(--tech-scale));
+  background-color: currentColor;
+  -webkit-mask-image: var(--tech-logo);
+  mask-image: var(--tech-logo);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+}
+
+@keyframes tech-float {
+  from {
+    transform: translate(-50%, -50%);
+  }
+  to {
+    transform: translate(-50%, calc(-50% - 10px));
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -107,7 +156,11 @@ body {
     scroll-behavior: auto !important;
   }
 
-  .hero-photo-frame {
+  .hero-intro {
+    animation: none;
+  }
+
+  .tech-backdrop__item {
     animation: none;
   }
 }

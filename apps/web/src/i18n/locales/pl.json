@@ -8,8 +8,8 @@
     "closeMenu": "Zamknij menu"
   },
   "hero": {
-    "status": "Frontend engineer · Warszawa · otwarty na hybrid lub on-site",
-    "tagline": "Buduję interfejsy z myślą o produkcie — takie, które pomagają ludziom skończyć to, po co przyszli.",
+    "greeting": "Cześć, jestem",
+    "role": "Frontend Software Engineer",
     "ctaWork": "Zobacz moją pracę",
     "ctaCv": "Pobierz CV"
   },
