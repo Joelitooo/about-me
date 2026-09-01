@@ -8,10 +8,8 @@
     "closeMenu": "Fechar menu"
   },
   "hero": {
-    "status": "Varsóvia · aberto a híbrido ou presencial",
     "greeting": "Olá, sou o",
     "role": "Engenheiro de Software Frontend",
-    "tagline": "Construo interfaces com sentido de produto, que ajudam as pessoas a acabar o que vieram fazer.",
     "ctaWork": "Ver o meu trabalho",
     "ctaCv": "Descarregar CV"
   },

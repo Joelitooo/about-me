@@ -30,9 +30,10 @@ describe("Hero", () => {
     expect(screen.getByText(SITE.name)).toBeInTheDocument();
   });
 
-  it("renders the status line", () => {
+  it("renders both calls to action", () => {
     renderHero();
-    expect(screen.getByText(/warsaw/i)).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "See my work" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Download CV" })).toBeInTheDocument();
   });
 
   it("keeps the technology backdrop out of the accessibility tree", () => {

@@ -23,17 +23,9 @@ export function Hero() {
       <TechBackdrop />
 
       <div className="hero-intro relative mx-auto flex w-full max-w-3xl flex-col items-center text-center">
-        <p className="mb-6 flex items-center gap-2 font-mono text-xs uppercase tracking-[0.16em] text-ink-soft sm:text-sm sm:normal-case sm:tracking-normal">
-          <span
-            aria-hidden
-            className="inline-block h-2 w-2 rounded-full bg-accent motion-safe:animate-pulse"
-          />
-          <span>{t("hero.status")}</span>
-        </p>
-
         {/* The three lines are separate blocks, so spell the name out for AT
             instead of relying on engines to infer the gaps between them. */}
-        <h1 className="mb-6" aria-label={`${t("hero.greeting")} ${SITE.name}, ${t("hero.role")}`}>
+        <h1 className="mb-10" aria-label={`${t("hero.greeting")} ${SITE.name}, ${t("hero.role")}`}>
           <span className="block font-sans text-xl font-normal text-ink-soft sm:text-2xl">
             {t("hero.greeting")}
           </span>
@@ -44,8 +36,6 @@ export function Hero() {
             {t("hero.role")}
           </span>
         </h1>
-
-        <p className="mb-9 max-w-[40ch] text-lg text-ink-soft sm:text-xl">{t("hero.tagline")}</p>
 
         <div className="flex flex-wrap justify-center gap-3">
           <a

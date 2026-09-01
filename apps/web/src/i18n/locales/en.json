@@ -8,10 +8,8 @@
     "closeMenu": "Close menu"
   },
   "hero": {
-    "status": "Warsaw · open to hybrid or on-site",
     "greeting": "Hi, I am",
     "role": "Frontend Software Engineer",
-    "tagline": "I build product-minded interfaces that help people finish what they came to do.",
     "ctaWork": "See my work",
     "ctaCv": "Download CV"
   },
