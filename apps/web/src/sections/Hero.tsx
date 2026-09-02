@@ -22,7 +22,9 @@ export function Hero() {
 
       <TechBackdrop />
 
-      <div className="hero-intro relative mx-auto flex w-full max-w-3xl flex-col items-center text-center">
+      {/* Transparent to the pointer so the logos it covers still answer hover;
+          the buttons opt back in below. */}
+      <div className="hero-intro pointer-events-none relative z-10 mx-auto flex w-full max-w-3xl flex-col items-center text-center">
         {/* The three lines are separate blocks, so spell the name out for AT
             instead of relying on engines to infer the gaps between them. */}
         <h1 className="mb-10" aria-label={`${t("hero.greeting")} ${SITE.name}, ${t("hero.role")}`}>
@@ -37,7 +39,7 @@ export function Hero() {
           </span>
         </h1>
 
-        <div className="flex flex-wrap justify-center gap-3">
+        <div className="pointer-events-auto flex flex-wrap justify-center gap-3">
           <a
             href="#work"
             className="inline-flex rounded-md bg-accent px-5 py-3 text-sm font-semibold text-on-accent transition-[background-color,color] duration-150 hover:bg-accent-hover"

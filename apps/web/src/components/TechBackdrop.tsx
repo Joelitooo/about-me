@@ -30,58 +30,115 @@ interface TechLogo {
   top: number;
   size: number;
   rotate: number;
+  /** Official brand colour, applied on hover. The SVGs are monochrome, so the
+      hex has to travel alongside them. */
+  color: string;
 }
 
-// Hand-placed rather than randomised: the scatter has to stay balanced and leave
-// the middle of the box empty, because the headline sits there.
+// Hand-placed rather than randomised: the scatter has to stay balanced and keep
+// its densest marks away from the middle, because the headline sits there.
+// Distance from the centre is deliberately uneven, so the set reads as a scatter
+// rather than a ring around the copy. Positions were checked pairwise at the
+// widest logo size, so neighbours clear each other without needing to shrink.
 const LOGOS: TechLogo[] = [
-  { name: "React", src: reactLogo, left: 8, top: 12, size: 58, rotate: -12 },
-  { name: "TypeScript", src: typescriptLogo, left: 20, top: 6, size: 40, rotate: 8 },
-  { name: "Docker", src: dockerLogo, left: 33, top: 17, size: 46, rotate: -6 },
-  { name: "Vite", src: viteLogo, left: 46, top: 7, size: 52, rotate: 14 },
-  { name: "PostgreSQL", src: postgresqlLogo, left: 58, top: 15, size: 44, rotate: -10 },
-  { name: "Tailwind CSS", src: tailwindLogo, left: 71, top: 7, size: 56, rotate: 6 },
-  { name: "Node.js", src: nodejsLogo, left: 84, top: 14, size: 42, rotate: -14 },
-  { name: "Git", src: gitLogo, left: 94, top: 5, size: 34, rotate: 12 },
-  { name: "NestJS", src: nestjsLogo, left: 5, top: 34, size: 50, rotate: 10 },
-  { name: "Prisma", src: prismaLogo, left: 14, top: 49, size: 38, rotate: -8 },
-  { name: "Cloudflare", src: cloudflareLogo, left: 4, top: 63, size: 54, rotate: 6 },
-  { name: "GitHub Actions", src: githubActionsLogo, left: 16, top: 75, size: 40, rotate: -12 },
-  { name: "nginx", src: nginxLogo, left: 86, top: 33, size: 46, rotate: -9 },
-  { name: "JavaScript", src: javascriptLogo, left: 95, top: 46, size: 36, rotate: 13 },
-  { name: "pnpm", src: pnpmLogo, left: 90, top: 61, size: 42, rotate: -5 },
-  { name: "Vitest", src: vitestLogo, left: 93, top: 71, size: 48, rotate: 9 },
-  { name: "ESLint", src: eslintLogo, left: 10, top: 89, size: 44, rotate: 7 },
-  { name: "HTML5", src: html5Logo, left: 26, top: 94, size: 38, rotate: -11 },
-  { name: "CSS", src: cssLogo, left: 41, top: 85, size: 46, rotate: 5 },
-  { name: "i18next", src: i18nextLogo, left: 56, top: 93, size: 40, rotate: -7 },
-  { name: "Prettier", src: prettierLogo, left: 70, top: 86, size: 52, rotate: 11 },
+  { name: "React", src: reactLogo, left: 12, top: 18, size: 58, rotate: -12, color: "#61DAFB" },
+  {
+    name: "TypeScript",
+    src: typescriptLogo,
+    left: 25,
+    top: 14,
+    size: 40,
+    rotate: 8,
+    color: "#3178C6",
+  },
+  { name: "Docker", src: dockerLogo, left: 38, top: 22, size: 46, rotate: -6, color: "#2496ED" },
+  { name: "Vite", src: viteLogo, left: 52, top: 16, size: 52, rotate: 14, color: "#646CFF" },
+  {
+    name: "PostgreSQL",
+    src: postgresqlLogo,
+    left: 64,
+    top: 24,
+    size: 44,
+    rotate: -10,
+    color: "#4169E1",
+  },
+  {
+    name: "Tailwind CSS",
+    src: tailwindLogo,
+    left: 78,
+    top: 17,
+    size: 56,
+    rotate: 6,
+    color: "#06B6D4",
+  },
+  { name: "Node.js", src: nodejsLogo, left: 89, top: 27, size: 42, rotate: -14, color: "#5FA04E" },
+  { name: "Git", src: gitLogo, left: 32, top: 39, size: 34, rotate: 12, color: "#F05032" },
+  { name: "NestJS", src: nestjsLogo, left: 15, top: 46, size: 50, rotate: 10, color: "#E0234E" },
+  { name: "Prisma", src: prismaLogo, left: 29, top: 64, size: 38, rotate: -8, color: "#2D3748" },
+  {
+    name: "Cloudflare",
+    src: cloudflareLogo,
+    left: 11,
+    top: 70,
+    size: 54,
+    rotate: 6,
+    color: "#F38020",
+  },
+  {
+    name: "GitHub Actions",
+    src: githubActionsLogo,
+    left: 29,
+    top: 86,
+    size: 40,
+    rotate: -12,
+    color: "#2088FF",
+  },
+  { name: "nginx", src: nginxLogo, left: 86, top: 48, size: 46, rotate: -9, color: "#009639" },
+  {
+    name: "JavaScript",
+    src: javascriptLogo,
+    left: 68,
+    top: 42,
+    size: 36,
+    rotate: 13,
+    color: "#F7DF1E",
+  },
+  { name: "pnpm", src: pnpmLogo, left: 89, top: 77, size: 42, rotate: -5, color: "#F69220" },
+  { name: "Vitest", src: vitestLogo, left: 80, top: 64, size: 48, rotate: 9, color: "#6E9F18" },
+  { name: "ESLint", src: eslintLogo, left: 16, top: 88, size: 44, rotate: 7, color: "#4B32C3" },
+  { name: "HTML5", src: html5Logo, left: 39, top: 90, size: 38, rotate: -11, color: "#E34F26" },
+  { name: "CSS", src: cssLogo, left: 48, top: 75, size: 46, rotate: 5, color: "#663399" },
+  { name: "i18next", src: i18nextLogo, left: 59, top: 90, size: 40, rotate: -7, color: "#26A69A" },
+  {
+    name: "Prettier",
+    src: prettierLogo,
+    left: 70,
+    top: 83,
+    size: 52,
+    rotate: 11,
+    color: "#F7B93E",
+  },
 ];
 
-// Small screens only have room for the top and bottom bands; the rest would
-// land on the headline.
-const COMPACT = new Set([
-  "React",
-  "TypeScript",
-  "Vite",
-  "Tailwind CSS",
-  "Node.js",
-  "ESLint",
-  "CSS",
-  "i18next",
-  "Prettier",
-]);
+// Small screens only have room for the top and bottom bands, and only for three
+// marks per band: the columns are spaced for a wide box, so any more of them
+// collide once the box is phone-width.
+const COMPACT = new Set(["React", "Vite", "Node.js", "ESLint", "CSS", "Prettier"]);
 
 export function TechBackdrop() {
   return (
     <div
       aria-hidden
-      className="tech-backdrop pointer-events-none absolute inset-0 overflow-hidden text-ink opacity-[0.16] dark:opacity-[0.22]"
+      className="tech-backdrop pointer-events-none absolute inset-0 z-0 overflow-hidden text-ink"
     >
       {LOGOS.map((logo, index) => (
         <span
           key={logo.name}
-          className={`tech-backdrop__item absolute ${COMPACT.has(logo.name) ? "" : "hidden sm:block"}`}
+          // Hover lives on the marks themselves, so the gaps between them stay
+          // transparent to the pointer.
+          className={`tech-backdrop__item pointer-events-auto absolute ${COMPACT.has(logo.name) ? "" : "hidden sm:block"}`}
+          // The per-logo values sit on the wrapper rather than the mark itself
+          // because the label has to read the mark's size to clear it.
           style={
             {
               left: `${logo.left}%`,
@@ -89,19 +146,23 @@ export function TechBackdrop() {
               // Coprime multipliers spread the drift so neighbours never sync up.
               "--tech-duration": `${9 + ((index * 7) % 5) * 0.9}s`,
               "--tech-delay": `${((index * 13) % 9) * 0.5}s`,
+              "--tech-logo": `url("${logo.src}")`,
+              "--tech-size": `${logo.size}px`,
+              "--tech-color": logo.color,
+              // The tilt travels as a variable so the hover zoom can be composed
+              // with it in the stylesheet instead of being overridden here.
+              "--tech-rotate": `${logo.rotate}deg`,
             } as CSSProperties
           }
         >
+          <span className="tech-backdrop__logo block" />
           <span
-            className="tech-backdrop__logo block"
-            style={
-              {
-                "--tech-logo": `url("${logo.src}")`,
-                "--tech-size": `${logo.size}px`,
-                transform: `rotate(${logo.rotate}deg)`,
-              } as CSSProperties
-            }
-          />
+            className={`tech-backdrop__label font-mono text-xs uppercase tracking-[0.14em] text-ink-soft ${
+              logo.top > 76 ? "tech-backdrop__label--above" : ""
+            }`}
+          >
+            {logo.name}
+          </span>
         </span>
       ))}
     </div>
