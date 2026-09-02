@@ -97,23 +97,28 @@ body {
   animation: hero-settle 500ms ease-out;
 }
 
-/* The logo scatter is a watermark: faded out behind the headline by a radial
-   hole, and tinted with the ink token so it follows both palettes and dark mode. */
+/* The logo scatter is a watermark: tinted with the ink token so it follows both
+   palettes and dark mode, and faint enough that the copy layered over it stays
+   legible. Idle opacity sits on each mark rather than the container so hover can
+   raise a single mark to its brand colour. */
 .tech-backdrop {
-  --tech-scale: 0.6;
-  -webkit-mask-image: radial-gradient(ellipse 64% 44% at 50% 50%, transparent 22%, #000 82%);
-  mask-image: radial-gradient(ellipse 64% 44% at 50% 50%, transparent 22%, #000 82%);
+  --tech-scale: 1.2;
+  --tech-idle: 0.16;
+}
+
+.dark .tech-backdrop {
+  --tech-idle: 0.22;
 }
 
 @media (min-width: 640px) {
   .tech-backdrop {
-    --tech-scale: 0.82;
+    --tech-scale: 2.2;
   }
 }
 
 @media (min-width: 1024px) {
   .tech-backdrop {
-    --tech-scale: 1;
+    --tech-scale: 2.6;
   }
 }
 
@@ -126,6 +131,8 @@ body {
 .tech-backdrop__logo {
   width: calc(var(--tech-size) * var(--tech-scale));
   height: calc(var(--tech-size) * var(--tech-scale));
+  opacity: var(--tech-idle);
+  transform: rotate(var(--tech-rotate, 0deg)) scale(var(--tech-zoom, 1));
   background-color: currentColor;
   -webkit-mask-image: var(--tech-logo);
   mask-image: var(--tech-logo);
@@ -135,6 +142,59 @@ body {
   mask-position: center;
   -webkit-mask-size: contain;
   mask-size: contain;
+}
+
+/* Anchored to the item rather than laid out under the logo, so revealing it can
+   never nudge the mark it names. */
+.tech-backdrop__label {
+  /* Has to clear the mark's tilt and hover zoom, which both push its artwork
+     outside the item box. Taken as a share of the rendered logo so small marks
+     don't end up with the gap a large one needs. */
+  --tech-gap: calc(var(--tech-size) * var(--tech-scale) * 0.18 + 0.4rem);
+  position: absolute;
+  top: calc(100% + var(--tech-gap));
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  opacity: 0;
+  /* Invisible while idle, so it must not intercept clicks meant for the copy. */
+  pointer-events: none;
+}
+
+/* Marks in the bottom band sit close enough to the edge that a label below them
+   would be cut off by the section box. */
+.tech-backdrop__label--above {
+  top: auto;
+  bottom: calc(100% + var(--tech-gap));
+}
+
+/* Touch devices would be left with a mark stuck in its hover state. */
+@media (hover: hover) {
+  .tech-backdrop__logo {
+    transition:
+      background-color 220ms ease,
+      opacity 220ms ease,
+      transform 220ms ease;
+  }
+
+  .tech-backdrop__label {
+    transition: opacity 180ms ease;
+  }
+
+  /* The hovered mark and its label have to clear neighbouring marks. */
+  .tech-backdrop__item:hover {
+    z-index: 1;
+  }
+
+  .tech-backdrop__item:hover .tech-backdrop__logo {
+    --tech-zoom: 1.225;
+    opacity: 1;
+    background-color: var(--tech-color);
+  }
+
+  .tech-backdrop__item:hover .tech-backdrop__label {
+    opacity: 1;
+  }
 }
 
 @keyframes tech-float {
