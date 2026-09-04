@@ -14,10 +14,12 @@
     "ctaCv": "Descarregar CV"
   },
   "about": {
-    "title": "Sobre",
-    "lede": "Sou engenheiro frontend com quatro anos de experiência, atualmente na eDreams, a trabalhar nas ferramentas a que os viajantes recorrem quando algo correu mal com uma reserva.",
-    "p2": "O trabalho de que mais me orgulho lá é o reconhecimento de intenção na barra de pesquisa de suporte: perceber o que alguém quer mesmo dizer e enviá-lo direto para a opção certa, em vez de uma lista de palpites. Menos becos sem saída, menos pessoas a desistir. É o tipo de problema de que gosto — âmbito estreito, valor óbvio no momento em que se usa.",
-    "p3": "Estudei Engenharia Informática, trabalho sobretudo em React e TypeScript, e sinto-me à vontade a adoptar o que um projeto realmente precisa. Este site é prova disso: construí e opero tudo, de ponta a ponta. Mudei-me recentemente para Varsóvia e estou aberto a papéis de frontend aqui, híbridos ou presenciais.",
+    "title": "Sobre mim",
+    "lede": "Olá, o meu nome é <name> Joel Silva </name> e sou engenheiro de software frontend; há <years> 4 anos </years> trabalho com o framework React e aspiro a ser engenheiro fullstack, a estudar mais o lado de backend.",
+    "p2": "Quando se trata de programar, sempre gostei do lado de puzzle e de resolver problemas com soluções inteligentes e 'bonitas'. Muitas vezes fico fascinado com soluções simples mas muito inteligentes e com a arquitetura de sistemas que alguns engenheiros inventam. <bsc>Tenho uma licenciatura em Engenharia Informática </bsc> e passei a carreira a trabalhar em páginas e componentes frontend em React.",
+    "p3": "<lifeStage>Mudei-me recentemente para Varsóvia, na Polónia</lifeStage> para uma nova etapa da minha vida, da qual estou muito entusiasmado. Neste momento estou à procura de uma empresa para trabalhar aqui. O que me deixa muito motivado para começar o que aparecer.",
+    "p4": "Mais algumas curiosidades sobre mim, fora do trabalho: adoro aviões e engenharia aeronáutica; ultimamente o desejo e a curiosidade por esta indústria têm crescido muito em mim, e está a tornar-se um sonho trabalhar num fabricante de aviões um dia. Por sorte, já trabalhei na indústria, mas na perspetiva da venda de bilhetes. O meu desporto favorito é ténis, que jogo com regularidade há 3 anos!",
+    "p5": "Se leste tudo isto ou se tropeçaste aqui ao acaso, clica no logo do <react>React</react> no topo da página para um facto extra!",
     "facts": {
       "role": "Frontend Software Engineer · eDreams",
       "location": "Varsóvia, Polónia · híbrido ou presencial",
@@ -125,7 +127,7 @@
     "skipToContent": "Saltar para o conteúdo"
   },
   "easterEgg": {
-    "foundMe": "Ha ha, encontraste-me!",
+    "foundMe": "Oh wow! Clicaste! Que giro — o facto extra é que trabalhei como videógrafo durante 10 anos (desde os 16), por isso tenho alguma experiência em edição e criação de vídeo :P",
     "close": "Fechar"
   }
 }

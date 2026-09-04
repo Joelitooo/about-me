@@ -50,7 +50,7 @@ describe("Hero", () => {
     renderHero();
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
     fireEvent.click(screen.getByRole("button", { name: "React" }));
-    expect(screen.getByRole("dialog", { name: "Ha ha you found me!" })).toBeInTheDocument();
+    expect(screen.getByRole("dialog", { name: /videographer for 10 years/i })).toBeInTheDocument();
   });
 
   it("closes the found-me modal from its close button", () => {

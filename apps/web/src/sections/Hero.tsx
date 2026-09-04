@@ -24,7 +24,12 @@ export function Hero() {
         }}
       />
 
-      <TechBackdrop onReactClick={() => setFoundMeOpen(true)} />
+      <TechBackdrop
+        onReactClick={() => {
+          trackEvent("easter_egg_click");
+          setFoundMeOpen(true);
+        }}
+      />
 
       {/* Transparent to the pointer so the logos it covers still answer hover;
           the buttons opt back in below. */}

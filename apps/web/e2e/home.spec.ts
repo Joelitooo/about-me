@@ -34,7 +34,7 @@ test("React logo opens the found-me easter egg", async ({ page }) => {
   await page.getByRole("button", { name: "React" }).click();
   const dialog = page.getByRole("dialog");
   await expect(dialog).toBeVisible();
-  await expect(dialog.getByText("Ha ha you found me!")).toBeVisible();
+  await expect(dialog.getByText(/videographer for 10 years/i)).toBeVisible();
   await dialog.getByRole("button", { name: "Close" }).click();
   await expect(dialog).toBeHidden();
 });

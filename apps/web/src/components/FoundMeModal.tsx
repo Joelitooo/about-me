@@ -34,10 +34,10 @@ export function FoundMeModal({ open, onClose }: FoundMeModalProps) {
         role="dialog"
         aria-modal="true"
         aria-labelledby="found-me-title"
-        className="max-w-sm rounded-md border border-line bg-surface px-6 py-5 text-center text-ink"
+        className="max-w-md rounded-md border border-line bg-surface px-6 py-5 text-left text-ink"
         onClick={(event) => event.stopPropagation()}
       >
-        <p id="found-me-title" className="text-lg text-ink">
+        <p id="found-me-title" className="leading-relaxed text-ink">
           {t("easterEgg.foundMe")}
         </p>
         <button

@@ -28,7 +28,7 @@ describe("FoundMeModal", () => {
 
   it("shows the found-me copy when open", () => {
     renderModal(true);
-    expect(screen.getByRole("dialog", { name: "Ha ha you found me!" })).toBeInTheDocument();
+    expect(screen.getByRole("dialog", { name: /videographer for 10 years/i })).toBeInTheDocument();
   });
 
   it("calls onClose from the close button", () => {

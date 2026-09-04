@@ -15,9 +15,11 @@
   },
   "about": {
     "title": "O mnie",
-    "lede": "Jestem frontend engineerem z czteroletnim doświadczeniem. Pracuję w eDreams nad narzędziami, po które sięgają podróżni, gdy z rezerwacją poszło coś nie tak.",
-    "p2": "Najbardziej cieszę się z rozpoznawania intencji w wyszukiwarce supportu: odczytać, o co komu naprawdę chodzi, i od razu skierować do właściwej opcji — zamiast listy domysłów do przekopywania. Mniej ślepych zaułków, mniej osób, które się poddają. Lubię takie problemy — wąski zakres, oczywista wartość w chwili użycia.",
-    "p3": "Studiowałem informatykę, na co dzień pracuję głównie w React i TypeScript, a nowe rzeczy biorę wtedy, gdy projekt ich naprawdę potrzebuje. Ta strona jest tego przykładem: zbudowałem i utrzymuję ją od frontu do backendu. Niedawno przeprowadziłem się do Warszawy i jestem otwarty na role frontendowe tutaj — hybrid lub on-site.",
+    "lede": "Cześć, nazywam się <name> Joel Silva </name> i jestem frontend software engineerem; od <years> 4 lat </years> pracuję z frameworkiem React i chcę zostać fullstack engineerem, ucząc się więcej backendu.",
+    "p2": "Jeśli chodzi o kodowanie, zawsze lubiłem w tym układanie puzzli i rozwiązywanie problemów sprytnymi, 'ładnymi' rozwiązaniami. Często fascynują mnie proste, a przy tym bardzo inteligentne rozwiązania i architektura systemów, które wymyślają niektórzy inżynierowie. <bsc>Mam licencjat z informatyki </bsc> i całą karierę spędziłem na stronach i komponentach frontendowych w Reakcie.",
+    "p3": "<lifeStage>Niedawno przeprowadziłem się do Warszawy, w Polsce</lifeStage> na nowy etap życia, na który bardzo się cieszę. W tej chwili szukam tu firmy, w której mógłbym pracować. To bardzo mnie motywuje, żeby wziąć się za to, co przyjdzie.",
+    "p4": "Jeszcze kilka ciekawostek, niezwiązanych z pracą: kocham samoloty i inżynierię lotniczą; ostatnio chęć i ciekawość tej branży bardzo we mnie rosną i marzeniem staje się praca u producenta samolotów. Na szczęście udało mi się już w tej branży popracować, ale od strony sprzedaży biletów. Mój ulubiony sport to tenis — gram regularnie od 3 lat!",
+    "p5": "Jeśli przeczytałeś to wszystko albo trafiłeś tu przypadkiem, kliknij logo <react>React</react> na górze strony, żeby zobaczyć dodatkową ciekawostkę!",
     "facts": {
       "role": "Frontend Software Engineer · eDreams",
       "location": "Warszawa · hybrid lub on-site",
@@ -125,7 +127,7 @@
     "skipToContent": "Przejdź do treści"
   },
   "easterEgg": {
-    "foundMe": "Ha ha, znalazłeś mnie!",
+    "foundMe": "O wow! Kliknąłeś! Super — ciekawostka o mnie: przez 10 lat (od kiedy miałem 16) pracowałem jako wideograf, więc mam trochę doświadczenia w montażu i kręceniu wideo :P",
     "close": "Zamknij"
   }
 }
