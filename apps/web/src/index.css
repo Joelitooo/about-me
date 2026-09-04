@@ -135,7 +135,7 @@ button.tech-backdrop__item {
   background: transparent;
   color: inherit;
   font: inherit;
-  cursor: pointer;
+  cursor: default;
 }
 
 .tech-backdrop__logo {
