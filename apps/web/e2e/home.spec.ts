@@ -31,7 +31,11 @@ test("palette toggle persists on the document", async ({ page }) => {
 
 test("React logo opens the found-me easter egg", async ({ page }) => {
   await page.goto("/");
-  await page.getByRole("button", { name: "React" }).click();
+  const reactLogo = page.getByRole("button", { name: "React" });
+  await expect(reactLogo).toBeVisible();
+  // The mark floats with an infinite CSS animation, so Playwright never sees a
+  // stable box. Real clicks still land; force skips that actionability check.
+  await reactLogo.click({ force: true });
   const dialog = page.getByRole("dialog");
   await expect(dialog).toBeVisible();
   await expect(dialog.getByText(/videographer for 10 years/i)).toBeVisible();
