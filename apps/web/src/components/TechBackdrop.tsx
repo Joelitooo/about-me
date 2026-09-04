@@ -125,46 +125,64 @@ const LOGOS: TechLogo[] = [
 // collide once the box is phone-width.
 const COMPACT = new Set(["React", "Vite", "Node.js", "ESLint", "CSS", "Prettier"]);
 
-export function TechBackdrop() {
+export function TechBackdrop({ onReactClick }: { onReactClick: () => void }) {
   return (
-    <div
-      aria-hidden
-      className="tech-backdrop pointer-events-none absolute inset-0 z-0 overflow-hidden text-ink"
-    >
-      {LOGOS.map((logo, index) => (
-        <span
-          key={logo.name}
-          // Hover lives on the marks themselves, so the gaps between them stay
-          // transparent to the pointer.
-          className={`tech-backdrop__item pointer-events-auto absolute ${COMPACT.has(logo.name) ? "" : "hidden sm:block"}`}
-          // The per-logo values sit on the wrapper rather than the mark itself
-          // because the label has to read the mark's size to clear it.
-          style={
-            {
-              left: `${logo.left}%`,
-              top: `${logo.top}%`,
-              // Coprime multipliers spread the drift so neighbours never sync up.
-              "--tech-duration": `${9 + ((index * 7) % 5) * 0.9}s`,
-              "--tech-delay": `${((index * 13) % 9) * 0.5}s`,
-              "--tech-logo": `url("${logo.src}")`,
-              "--tech-size": `${logo.size}px`,
-              "--tech-color": logo.color,
-              // The tilt travels as a variable so the hover zoom can be composed
-              // with it in the stylesheet instead of being overridden here.
-              "--tech-rotate": `${logo.rotate}deg`,
-            } as CSSProperties
-          }
-        >
-          <span className="tech-backdrop__logo block" />
-          <span
-            className={`tech-backdrop__label font-mono text-xs uppercase tracking-[0.14em] text-ink-soft ${
-              logo.top > 76 ? "tech-backdrop__label--above" : ""
-            }`}
-          >
-            {logo.name}
+    <div className="tech-backdrop pointer-events-none absolute inset-0 z-0 overflow-hidden text-ink">
+      {LOGOS.map((logo, index) => {
+        const isReact = logo.name === "React";
+        // Hover lives on the marks themselves, so the gaps between them stay
+        // transparent to the pointer.
+        const className = `tech-backdrop__item pointer-events-auto absolute ${COMPACT.has(logo.name) ? "" : "hidden sm:block"}`;
+        // The per-logo values sit on the wrapper rather than the mark itself
+        // because the label has to read the mark's size to clear it.
+        const style = {
+          left: `${logo.left}%`,
+          top: `${logo.top}%`,
+          // Coprime multipliers spread the drift so neighbours never sync up.
+          "--tech-duration": `${9 + ((index * 7) % 5) * 0.9}s`,
+          "--tech-delay": `${((index * 13) % 9) * 0.5}s`,
+          "--tech-logo": `url("${logo.src}")`,
+          "--tech-size": `${logo.size}px`,
+          "--tech-color": logo.color,
+          // The tilt travels as a variable so the hover zoom can be composed
+          // with it in the stylesheet instead of being overridden here.
+          "--tech-rotate": `${logo.rotate}deg`,
+        } as CSSProperties;
+        const inner = (
+          <>
+            <span className="tech-backdrop__logo block" />
+            <span
+              aria-hidden
+              className={`tech-backdrop__label font-mono text-xs uppercase tracking-[0.14em] text-ink-soft ${
+                logo.top > 76 ? "tech-backdrop__label--above" : ""
+              }`}
+            >
+              {logo.name}
+            </span>
+          </>
+        );
+
+        if (isReact) {
+          return (
+            <button
+              key={logo.name}
+              type="button"
+              className={className}
+              style={style}
+              aria-label={logo.name}
+              onClick={onReactClick}
+            >
+              {inner}
+            </button>
+          );
+        }
+
+        return (
+          <span key={logo.name} className={className} style={style} aria-hidden>
+            {inner}
           </span>
-        </span>
-      ))}
+        );
+      })}
     </div>
   );
 }

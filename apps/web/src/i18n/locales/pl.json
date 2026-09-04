@@ -123,5 +123,9 @@
   },
   "a11y": {
     "skipToContent": "Przejdź do treści"
+  },
+  "easterEgg": {
+    "foundMe": "Ha ha, znalazłeś mnie!",
+    "close": "Zamknij"
   }
 }

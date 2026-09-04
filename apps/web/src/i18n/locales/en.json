@@ -125,5 +125,9 @@
   },
   "a11y": {
     "skipToContent": "Skip to content"
+  },
+  "easterEgg": {
+    "foundMe": "Ha ha you found me!",
+    "close": "Close"
   }
 }

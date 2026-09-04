@@ -29,6 +29,16 @@ test("palette toggle persists on the document", async ({ page }) => {
   await expect(html).toHaveAttribute("data-palette", "slate");
 });
 
+test("React logo opens the found-me easter egg", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "React" }).click();
+  const dialog = page.getByRole("dialog");
+  await expect(dialog).toBeVisible();
+  await expect(dialog.getByText("Ha ha you found me!")).toBeVisible();
+  await dialog.getByRole("button", { name: "Close" }).click();
+  await expect(dialog).toBeHidden();
+});
+
 test("work architecture graph is click-to-inspect", async ({ page }) => {
   await page.goto("/");
   const work = page.locator("#work");
