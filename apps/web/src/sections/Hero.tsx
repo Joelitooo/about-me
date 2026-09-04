@@ -1,11 +1,15 @@
+import { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
 
+import { FoundMeModal } from "../components/FoundMeModal.js";
 import { TechBackdrop } from "../components/TechBackdrop.js";
 import { trackEvent } from "../lib/analytics.js";
 import { SITE } from "../lib/site.js";
 
 export function Hero() {
   const { t } = useTranslation();
+  const [foundMeOpen, setFoundMeOpen] = useState(false);
+  const closeFoundMe = useCallback(() => setFoundMeOpen(false), []);
 
   return (
     <section
@@ -20,7 +24,12 @@ export function Hero() {
         }}
       />
 
-      <TechBackdrop />
+      <TechBackdrop
+        onReactClick={() => {
+          trackEvent("easter_egg_click");
+          setFoundMeOpen(true);
+        }}
+      />
 
       {/* Transparent to the pointer so the logos it covers still answer hover;
           the buttons opt back in below. */}
@@ -60,6 +69,8 @@ export function Hero() {
           </a>
         </div>
       </div>
+
+      <FoundMeModal open={foundMeOpen} onClose={closeFoundMe} />
     </section>
   );
 }

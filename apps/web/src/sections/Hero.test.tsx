@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { I18nextProvider } from "react-i18next";
 import { beforeAll, describe, expect, it } from "vitest";
 
@@ -36,12 +36,27 @@ describe("Hero", () => {
     expect(screen.getByRole("link", { name: "Download CV" })).toBeInTheDocument();
   });
 
-  it("keeps the technology backdrop out of the accessibility tree", () => {
+  it("keeps the decorative logos out of the accessibility tree", () => {
     const { container } = renderHero();
     const backdrop = container.querySelector(".tech-backdrop");
     expect(backdrop).not.toBeNull();
-    expect(backdrop).toHaveAttribute("aria-hidden", "true");
+    expect(backdrop).not.toHaveAttribute("aria-hidden");
+    expect(screen.getByRole("button", { name: "React" })).toBeInTheDocument();
     // The logos are CSS masks, so nothing decorative should surface as an image.
     expect(screen.queryByRole("img")).not.toBeInTheDocument();
+  });
+
+  it("opens the found-me modal from the React logo", () => {
+    renderHero();
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "React" }));
+    expect(screen.getByRole("dialog", { name: /videographer for 10 years/i })).toBeInTheDocument();
+  });
+
+  it("closes the found-me modal from its close button", () => {
+    renderHero();
+    fireEvent.click(screen.getByRole("button", { name: "React" }));
+    fireEvent.click(screen.getByRole("button", { name: "Close" }));
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
   });
 });

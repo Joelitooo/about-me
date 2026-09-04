@@ -1,4 +1,4 @@
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 
 import { SectionHeader } from "../components/SectionHeader.js";
 import { trackEvent } from "../lib/analytics.js";
@@ -30,10 +30,40 @@ export function About() {
     <SectionHeader id="about" index="01 / ABOUT" title={t("about.title")}>
       <div className="grid gap-12 lg:grid-cols-[minmax(0,1.4fr)_minmax(16rem,0.8fr)] lg:gap-16">
         <div className="max-w-[68ch] space-y-5">
-          <p className="text-xl leading-relaxed text-ink">{t("about.lede")}</p>
-          <p className="leading-relaxed text-ink-soft">{t("about.p2")}</p>
-          <p className="leading-relaxed text-ink-soft">{t("about.p3")}</p>
-
+          <p className="text-xl leading-relaxed text-ink">
+            <Trans
+              i18nKey="about.lede"
+              components={{
+                name: <strong className="font-black text-ink decoration-accent" />,
+                years: <strong className="font-black text-ink decoration-accent" />,
+              }}
+            />
+          </p>
+          <p className="leading-relaxed text-ink-soft">
+            <Trans
+              i18nKey="about.p2"
+              components={{
+                bsc: <strong className="font-normal underline text-ink decoration-accent" />,
+              }}
+            />
+          </p>
+          <p className="leading-relaxed text-ink-soft">
+            <Trans
+              i18nKey="about.p3"
+              components={{
+                lifeStage: <strong className="font-normal underline text-ink decoration-accent" />,
+              }}
+            />
+          </p>
+          <p className="leading-relaxed text-ink-soft">{t("about.p4")}</p>
+          <p className="leading-relaxed text-ink-soft">
+            <Trans
+              i18nKey="about.p5"
+              components={{
+                react: <span className="font-light text-ink decoration-accent" />,
+              }}
+            />
+          </p>
           <div className="pt-4">
             <h3 className="mb-4 font-mono text-xs uppercase tracking-[0.18em] text-ink-soft">
               {t("about.experienceTitle")}

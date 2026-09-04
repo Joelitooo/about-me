@@ -128,6 +128,16 @@ body {
     alternate;
 }
 
+button.tech-backdrop__item {
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: default;
+}
+
 .tech-backdrop__logo {
   width: calc(var(--tech-size) * var(--tech-scale));
   height: calc(var(--tech-size) * var(--tech-scale));
