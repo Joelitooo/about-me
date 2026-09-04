@@ -1,4 +1,4 @@
-import { useTranslation, Trans } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 
 import { SectionHeader } from "../components/SectionHeader.js";
 import { trackEvent } from "../lib/analytics.js";
@@ -39,12 +39,14 @@ export function About() {
               }}
             />
           </p>
-          <p className="leading-relaxed text-ink-soft"> <Trans
-            i18nKey="about.p2"
-            components={{
-              bsc: <strong className="font-normal underline text-ink decoration-accent" />,
-            }}
-          /></p>
+          <p className="leading-relaxed text-ink-soft">
+            <Trans
+              i18nKey="about.p2"
+              components={{
+                bsc: <strong className="font-normal underline text-ink decoration-accent" />,
+              }}
+            />
+          </p>
           <p className="leading-relaxed text-ink-soft">
             <Trans
               i18nKey="about.p3"
@@ -54,12 +56,13 @@ export function About() {
             />
           </p>
           <p className="leading-relaxed text-ink-soft">{t("about.p4")}</p>
-          <p className="leading-relaxed text-ink-soft"> <Trans
-            i18nKey="about.p5"
-            components={{
-              react: <span className="font-light text-ink decoration-accent" />,
-            }}
-          />
+          <p className="leading-relaxed text-ink-soft">
+            <Trans
+              i18nKey="about.p5"
+              components={{
+                react: <span className="font-light text-ink decoration-accent" />,
+              }}
+            />
           </p>
           <div className="pt-4">
             <h3 className="mb-4 font-mono text-xs uppercase tracking-[0.18em] text-ink-soft">
