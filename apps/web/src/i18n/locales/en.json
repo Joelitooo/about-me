@@ -14,10 +14,12 @@
     "ctaCv": "Download CV"
   },
   "about": {
-    "title": "About",
-    "lede": "I'm a frontend engineer with four years of experience, currently at eDreams, working on the tools travellers reach for when something has gone wrong with a booking.",
-    "p2": "The work I'm most pleased with there is intent recognition in the support search bar: reading what someone actually means and sending them straight to the right support option, instead of handing them a list of guesses to sift through. Fewer dead ends, fewer people giving up. That's the kind of problem I like — narrow in scope, obvious in value the moment you use it.",
-    "p3": "I studied Computer Science, work mostly in React and TypeScript, and I'm comfortable picking up whatever a project actually needs. This site is a case in point: I built and operate the whole thing, front to back. I recently moved to Warsaw and I'm open to frontend roles here, hybrid or on-site.",
+    "title": "About Me",
+    "lede": "Hi, my name <name> Joel Silva </name> and I am a frontend software engineer, for the <years> past 4 years </years> working with React Framework and I aspire to be a fullstack engineer and studying more the backend side.",
+    "p2": "When it comes to coding, I've always liked the puzzle aspect of it and solving problems with clever 'good looking' solutions, I often get fascinated by some simple yet very smart solutions and system architeture that some engineers come up with. <bsc>I have a bachelor's degree in Computer Science </bsc> and I've spent my career being working on React frontend pages and components.",
+    "p3": "<lifeStage>I've recently moved to Warsaw, Poland</lifeStage> for a new stage of my life that I am very excited to go through. As of this moment I am looking for a company to work here. Which makes me very motivated to start whatever work comes up.",
+    "p4": "Some more interesting facts about me, not work related: I love airplanes and airplane engineering, as of lately the desire and curiosity for this industry has been growing a lot in me, it is becoming a dream of mine to work in a plane manufacturer one day. Luckly enough, I've gotten to work in the industry, but from the ticket selling perspective. My favourite sport is tennis, which I've been playing consistently for the past 3 years!",
+    "p5": "If you've read all of this or just stumbled onto this, randomly please click on the <react>React</react> logo at the top of the page for an extra fun fact!",
     "facts": {
       "role": "Frontend Software Engineer · eDreams",
       "location": "Warsaw, Poland · hybrid or on-site",

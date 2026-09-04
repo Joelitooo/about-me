@@ -7,7 +7,7 @@ test("home page renders hero and navigation", async ({ page }) => {
   // Scoped to the nav and exact: "Work" is a substring of the hero's "See my work" CTA.
   const nav = page.getByRole("navigation", { name: "Main" });
   await expect(nav).toBeVisible();
-  for (const label of ["About", "Work", "Contact"]) {
+  for (const label of ["About", "Work"]) {
     await expect(nav.getByRole("link", { name: label, exact: true })).toBeVisible();
   }
 });

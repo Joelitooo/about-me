@@ -6,7 +6,7 @@ import { SITE } from "../lib/site.js";
 import { useTheme } from "../theme/ThemeProvider.js";
 
 const LOCALES = ["en", "pt", "pl"] as const;
-const NAV_LINKS = ["about", "work", "contact"] as const;
+const NAV_LINKS = ["about", "work"] as const;
 
 function MenuIcon({ open }: { open: boolean }) {
   return (
@@ -113,12 +113,12 @@ export function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b border-line bg-canvas/90 backdrop-blur">
       <nav
-        className="flex w-full items-center justify-between gap-4 px-6 py-3 lg:px-10 2xl:px-16"
+        className="flex w-full items-center justify-between gap-4 px-6 py-3 md:grid md:grid-cols-[1fr_auto_1fr] lg:px-10 2xl:px-16"
         aria-label="Main"
       >
         <a
           href="#top"
-          className="font-display text-lg font-semibold tracking-tight text-ink transition-colors duration-150 hover:text-accent"
+          className="font-display text-lg font-semibold tracking-tight text-ink transition-colors duration-150 hover:text-accent md:justify-self-start"
         >
           {SITE.name}
         </a>
@@ -136,9 +136,9 @@ export function Navbar() {
 
         <div
           id="primary-nav"
-          className={`${menuOpen ? "flex" : "hidden"} absolute left-0 right-0 top-full flex-col gap-4 border-b border-line bg-canvas px-6 py-4 md:static md:flex md:flex-1 md:flex-row md:items-center md:justify-between md:border-0 md:bg-transparent md:p-0 lg:px-0`}
+          className={`${menuOpen ? "flex" : "hidden"} absolute left-0 right-0 top-full flex-col gap-4 border-b border-line bg-canvas px-6 py-4 md:contents`}
         >
-          <ul className="flex flex-col gap-2 md:mx-auto md:flex-row md:items-center md:gap-6">
+          <ul className="flex flex-col gap-2 md:flex-row md:items-center md:gap-6">
             {NAV_LINKS.map((key) => (
               <li key={key}>
                 <a
@@ -153,7 +153,7 @@ export function Navbar() {
             ))}
           </ul>
 
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-center md:gap-3">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center md:gap-3 md:justify-self-end">
             {controlCluster}
             <a
               href="/resume.pdf"
