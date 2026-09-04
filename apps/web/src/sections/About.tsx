@@ -57,7 +57,7 @@ export function About() {
           <p className="leading-relaxed text-ink-soft"> <Trans
             i18nKey="about.p5"
             components={{
-              react: <span className="font-light text-ink decoration-accent"/>,
+              react: <span className="font-light text-ink decoration-accent" />,
             }}
           />
           </p>
