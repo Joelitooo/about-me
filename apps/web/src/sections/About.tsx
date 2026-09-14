@@ -64,25 +64,6 @@ export function About() {
               }}
             />
           </p>
-          <div className="pt-4">
-            <h3 className="mb-4 font-mono text-xs uppercase tracking-[0.18em] text-ink-soft">
-              {t("about.experienceTitle")}
-            </h3>
-            <ul className="space-y-4 border-t border-line">
-              {EXPERIENCE.map((item) => (
-                <li
-                  key={`${item.company}-${item.period}`}
-                  className="grid gap-1 border-b border-line py-4 sm:grid-cols-[1fr_auto] sm:items-baseline"
-                >
-                  <div>
-                    <p className="font-medium text-ink">{item.role}</p>
-                    <p className="text-ink-soft">{item.company}</p>
-                  </div>
-                  <p className="font-mono text-xs text-ink-soft sm:text-right">{item.period}</p>
-                </li>
-              ))}
-            </ul>
-          </div>
         </div>
 
         <aside className="space-y-6 lg:pt-1">
@@ -107,6 +88,21 @@ export function About() {
             <p className="font-mono text-xs text-ink-soft">
               {t("about.cvUpdated", { date: SITE.cvUpdated })}
             </p>
+          </div>
+
+          <div className="pt-8">
+            <h3 className="mb-4 font-mono text-sm font-bold uppercase tracking-[0.16em] text-ink">
+              {t("about.experienceTitle")}
+            </h3>
+            <ul className="border-t border-line">
+              {EXPERIENCE.map((item) => (
+                <li key={`${item.company}-${item.period}`} className="border-b border-line py-4">
+                  <p className="font-medium text-ink">{item.role}</p>
+                  <p className="text-ink-soft">{item.company}</p>
+                  <p className="mt-1 font-mono text-xs text-ink-soft">{item.period}</p>
+                </li>
+              ))}
+            </ul>
           </div>
         </aside>
       </div>
