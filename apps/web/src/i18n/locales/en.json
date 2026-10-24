@@ -39,9 +39,11 @@
     "backend": "Backend",
     "ops": "Ops & tooling",
     "closing": "React first, adaptable to the rest.",
-    "projectsTitle": "Selected work",
     "viewRepo": "View repo",
-    "viewLive": "View live",
+    "card": {
+      "eyebrow": "Case study",
+      "cta": "Explore the monorepo"
+    },
     "projects": {
       "aboutMe": {
         "outcome": "A self-hosted fullstack portfolio I design, ship, and operate — SPA, API, Docker on a Pi, tunnel, and CI. Built to prove the stack, not pad a resume."
@@ -98,6 +100,21 @@
         }
       }
     }
+  },
+  "monorepo": {
+    "index": "Work / Monorepo",
+    "back": "Back to work",
+    "description": "Everything behind this site lives in one pnpm + TypeScript workspace: the React app you are reading, a NestJS API, the types they share, and the infrastructure that builds, ships, and runs it all on a Raspberry Pi at home. One repo, one lockfile, one pipeline.",
+    "insideTitle": "What's inside",
+    "workspaces": {
+      "web": "The React SPA you are looking at: Vite, Tailwind, i18next in three languages, and the architecture graph below, built with React Flow.",
+      "api": "A NestJS API with health checks and a contact endpoint, backed by PostgreSQL through Prisma.",
+      "shared": "TypeScript types and DTOs shared by the web app and the API, so both sides agree on the contract.",
+      "infra": "Docker Compose, nginx, the Cloudflare Tunnel config, and the deploy and backup scripts for the Pi.",
+      "ci": "Pull-request quality gates, Playwright against a real Compose stack, ARM64 image builds, and the deploy job."
+    },
+    "architectureTitle": "How it runs",
+    "architectureIntro": "From a push to main to a page in your browser: every box below is a real piece of the deployment."
   },
   "contact": {
     "title": "Contact",

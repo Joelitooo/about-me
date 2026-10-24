@@ -43,14 +43,30 @@ test("React logo opens the found-me easter egg", async ({ page }) => {
   await expect(dialog).toBeHidden();
 });
 
-test("work architecture graph is click-to-inspect", async ({ page }) => {
+test("work card opens the monorepo page and the navbar leads back", async ({ page }) => {
   await page.goto("/");
   const work = page.locator("#work");
   await work.scrollIntoViewIfNeeded();
   await expect(work.getByRole("heading", { name: "Portfolio monorepo" })).toBeVisible();
+  await expect(work.locator(".react-flow")).toHaveCount(0);
 
-  const canvas = work.locator(".react-flow");
+  await work.getByRole("link", { name: /explore the monorepo/i }).click();
+  await expect(page).toHaveURL(/\/monorepo$/);
+  await expect(page.getByRole("heading", { level: 1, name: "Portfolio monorepo" })).toBeVisible();
+
+  const nav = page.getByRole("navigation", { name: "Main" });
+  await nav.getByRole("link", { name: "About", exact: true }).click();
+  await expect(page).toHaveURL(/\/#about$/);
+  await expect(page.locator("#about")).toBeInViewport();
+});
+
+test("monorepo architecture graph is click-to-inspect", async ({ page }) => {
+  await page.goto("/monorepo");
+  const architecture = page.locator("#architecture");
+  await architecture.scrollIntoViewIfNeeded();
+
+  const canvas = architecture.locator(".react-flow");
   await expect(canvas).toBeVisible();
-  await work.locator('.react-flow__node[data-id="web"]').click();
-  await expect(work.getByText(/static Vite build served by nginx/i)).toBeVisible();
+  await architecture.locator('.react-flow__node[data-id="web"]').click();
+  await expect(architecture.getByText(/static Vite build served by nginx/i)).toBeVisible();
 });

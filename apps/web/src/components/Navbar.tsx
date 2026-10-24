@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { Link, useLocation } from "react-router";
 
 import { trackEvent } from "../lib/analytics.js";
+import { MONOREPO } from "../lib/monorepo.js";
 import { SITE } from "../lib/site.js";
 import { useTheme } from "../theme/ThemeProvider.js";
 
@@ -36,6 +38,9 @@ export function Navbar() {
   const { theme, toggleTheme, palette, togglePalette } = useTheme();
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("");
+  const { pathname } = useLocation();
+  const onHome = pathname === "/";
+  const currentSection = onHome ? activeSection : pathname === MONOREPO.path ? "work" : "";
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -49,6 +54,8 @@ export function Navbar() {
   }, [menuOpen]);
 
   useEffect(() => {
+    if (!onHome) return;
+
     const sections = NAV_LINKS.map((id) => document.getElementById(id)).filter(
       (el): el is HTMLElement => el !== null,
     );
@@ -68,7 +75,7 @@ export function Navbar() {
 
     for (const section of sections) observer.observe(section);
     return () => observer.disconnect();
-  }, []);
+  }, [onHome]);
 
   const controlCluster = (
     <div className="flex items-center gap-1.5">
@@ -116,12 +123,12 @@ export function Navbar() {
         className="flex w-full items-center justify-between gap-4 px-6 py-3 md:grid md:grid-cols-[1fr_auto_1fr] lg:px-10 2xl:px-16"
         aria-label="Main"
       >
-        <a
-          href="#top"
+        <Link
+          to="/#top"
           className="font-display text-lg font-semibold tracking-tight text-ink transition-colors duration-150 hover:text-accent md:justify-self-start"
         >
           {SITE.name}
-        </a>
+        </Link>
 
         <button
           type="button"
@@ -141,14 +148,14 @@ export function Navbar() {
           <ul className="flex flex-col gap-2 md:flex-row md:items-center md:gap-6">
             {NAV_LINKS.map((key) => (
               <li key={key}>
-                <a
-                  href={`#${key}`}
+                <Link
+                  to={`/#${key}`}
                   className="text-sm text-ink-soft transition-colors duration-150 hover:text-ink"
-                  aria-current={activeSection === key ? "true" : undefined}
+                  aria-current={currentSection === key ? "true" : undefined}
                   onClick={() => setMenuOpen(false)}
                 >
                   {t(`nav.${key}`)}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>

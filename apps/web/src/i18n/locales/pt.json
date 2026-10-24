@@ -39,9 +39,11 @@
     "backend": "Backend",
     "ops": "Ops e ferramentas",
     "closing": "React em primeiro, adaptável ao resto.",
-    "projectsTitle": "Trabalho selecionado",
     "viewRepo": "Ver repositório",
-    "viewLive": "Ver live",
+    "card": {
+      "eyebrow": "Caso de estudo",
+      "cta": "Explorar o monorepo"
+    },
     "projects": {
       "aboutMe": {
         "outcome": "Um portefólio fullstack self-hosted que desenho, publico e opero — SPA, API, Docker num Pi, tunnel e CI. Feito para provar a stack, não para encher o CV."
@@ -98,6 +100,21 @@
         }
       }
     }
+  },
+  "monorepo": {
+    "index": "Trabalho / Monorepo",
+    "back": "Voltar ao trabalho",
+    "description": "Tudo o que está por trás deste site vive num único workspace pnpm + TypeScript: a app React que está a ler, uma API NestJS, os tipos que partilham e a infraestrutura que compila, publica e corre tudo num Raspberry Pi em casa. Um repositório, um lockfile, um pipeline.",
+    "insideTitle": "O que tem lá dentro",
+    "workspaces": {
+      "web": "A SPA React que está a ver: Vite, Tailwind, i18next em três línguas e o gráfico de arquitetura abaixo, feito com React Flow.",
+      "api": "Uma API NestJS com health checks e um endpoint de contacto, ligada a PostgreSQL através do Prisma.",
+      "shared": "Tipos e DTOs TypeScript partilhados entre a app web e a API, para que os dois lados concordem no contrato.",
+      "infra": "Docker Compose, nginx, a configuração do Cloudflare Tunnel e os scripts de deploy e backup do Pi.",
+      "ci": "Verificações de qualidade nos pull requests, Playwright contra uma stack Compose real, builds de imagens ARM64 e o job de deploy."
+    },
+    "architectureTitle": "Como funciona",
+    "architectureIntro": "De um push para a main até uma página no seu browser: cada caixa abaixo é uma peça real do deploy."
   },
   "contact": {
     "title": "Contacto",

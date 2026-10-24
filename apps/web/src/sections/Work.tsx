@@ -1,125 +1,66 @@
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router";
 
 import { SectionHeader } from "../components/SectionHeader.js";
 import { trackEvent } from "../lib/analytics.js";
-import { SITE } from "../lib/site.js";
-import { ArchitectureGraph } from "./architecture/ArchitectureGraph.js";
+import { MONOREPO } from "../lib/monorepo.js";
 
-const CAPABILITIES = {
-  frontend: ["React", "TypeScript", "Vite", "Tailwind CSS", "i18next"],
-  backend: ["NestJS", "PostgreSQL", "Prisma"],
-  ops: ["Docker", "GitHub Actions", "Cloudflare Tunnel", "nginx", "pnpm"],
-} as const;
-
-interface Project {
-  slug: string;
-  title: string;
-  outcomeKey: string;
-  repoUrl: string;
-  liveUrl?: string;
-  tags: string[];
-}
-
-const PROJECTS: Project[] = [
-  {
-    slug: "about-me",
-    title: "Portfolio monorepo",
-    outcomeKey: "work.projects.aboutMe.outcome",
-    repoUrl: SITE.links.repo,
-    liveUrl: "/",
-    tags: ["React", "NestJS", "Docker", "CI/CD"],
-  },
-];
+const REPO_TREE = `about-me/
+├── apps/
+│   ├── web
+│   └── api
+├── packages/shared
+├── infra
+└── .github/workflows`;
 
 export function Work() {
   const { t } = useTranslation();
 
   return (
-    <SectionHeader id="work" index="02 / WORK" title={t("work.title")} className="!pb-0">
-      <div className="space-y-14">
-        <div>
-          <h3 className="mb-4 font-mono text-xs uppercase tracking-[0.18em] text-ink-soft">
-            {t("work.capabilities")}
-          </h3>
-          <dl className="space-y-3 border-t border-line">
-            {(
-              [
-                ["frontend", CAPABILITIES.frontend],
-                ["backend", CAPABILITIES.backend],
-                ["ops", CAPABILITIES.ops],
-              ] as const
-            ).map(([key, items]) => (
-              <div
-                key={key}
-                className="grid gap-1 border-b border-line py-3 sm:grid-cols-[10rem_1fr] sm:gap-6"
+    <SectionHeader id="work" index="02 / WORK" title={t("work.title")}>
+      <div className="flex justify-center">
+        <article className="group relative flex w-full max-w-sm flex-col overflow-hidden rounded-lg border border-line bg-surface transition-[border-color,transform] duration-200 hover:-translate-y-1 hover:border-accent has-[:focus-visible]:border-accent has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-accent has-[:focus-visible]:ring-offset-2 has-[:focus-visible]:ring-offset-canvas">
+          <pre
+            aria-hidden
+            className="border-b border-line bg-canvas px-6 py-8 font-mono text-sm leading-relaxed text-ink-soft transition-colors duration-200 group-hover:text-ink"
+          >
+            {REPO_TREE}
+          </pre>
+          <div className="flex flex-1 flex-col p-6">
+            <p className="mb-2 font-mono text-xs uppercase tracking-[0.18em] text-accent">
+              {t("work.card.eyebrow")}
+            </p>
+            <h3 className="mb-3 font-display text-2xl font-semibold tracking-tight text-ink">
+              {MONOREPO.title}
+            </h3>
+            <p className="mb-5 text-ink-soft">{t("work.projects.aboutMe.outcome")}</p>
+            <ul className="mb-8 flex flex-wrap gap-2">
+              {MONOREPO.tags.map((tag) => (
+                <li
+                  key={tag}
+                  className="rounded bg-canvas px-2 py-1 font-mono text-xs text-ink-soft"
+                >
+                  {tag}
+                </li>
+              ))}
+            </ul>
+            <Link
+              to={MONOREPO.path}
+              className="mt-auto inline-flex items-center gap-2 font-mono text-sm text-accent transition-colors duration-150 after:absolute after:inset-0 after:content-[''] hover:text-accent-hover focus-visible:outline-none"
+              onClick={() =>
+                trackEvent("project_link_click", { project: MONOREPO.slug, kind: "case_study" })
+              }
+            >
+              {t("work.card.cta")}
+              <span
+                aria-hidden
+                className="transition-transform duration-200 group-hover:translate-x-1"
               >
-                <dt className="font-mono text-xs uppercase tracking-[0.14em] text-ink-soft">
-                  {t(`work.${key}`)}
-                </dt>
-                <dd className="font-mono text-sm text-ink">{items.join(" · ")}</dd>
-              </div>
-            ))}
-          </dl>
-          <p className="mt-4 text-sm text-ink-soft">{t("work.closing")}</p>
-        </div>
-
-        <div>
-          <h3 className="mb-4 font-mono text-xs uppercase tracking-[0.18em] text-ink-soft">
-            {t("work.projectsTitle")}
-          </h3>
-          <ul className="border-t border-line">
-            {PROJECTS.map((project) => (
-              <li
-                key={project.slug}
-                className="grid gap-4 py-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end"
-              >
-                <div>
-                  <h4 className="mb-2 font-display text-2xl font-semibold tracking-tight text-ink">
-                    {project.title}
-                  </h4>
-                  <p className="mb-4 max-w-[68ch] text-ink-soft">{t(project.outcomeKey)}</p>
-                  <ul className="flex flex-wrap gap-2">
-                    {project.tags.map((tag) => (
-                      <li
-                        key={tag}
-                        className="rounded bg-surface px-2 py-1 font-mono text-xs text-ink-soft"
-                      >
-                        {tag}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="flex flex-wrap gap-4 font-mono text-sm">
-                  <a
-                    href={project.repoUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-accent transition-colors duration-150 hover:text-accent-hover"
-                    onClick={() =>
-                      trackEvent("project_link_click", { project: project.slug, kind: "repo" })
-                    }
-                  >
-                    {t("work.viewRepo")}
-                  </a>
-                  {project.liveUrl ? (
-                    <a
-                      href={project.liveUrl}
-                      className="text-accent transition-colors duration-150 hover:text-accent-hover"
-                      onClick={() =>
-                        trackEvent("project_link_click", { project: project.slug, kind: "live" })
-                      }
-                    >
-                      {t("work.viewLive")}
-                    </a>
-                  ) : null}
-                </div>
-                <div className="min-w-0 lg:col-span-2">
-                  <ArchitectureGraph />
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
+                →
+              </span>
+            </Link>
+          </div>
+        </article>
       </div>
     </SectionHeader>
   );

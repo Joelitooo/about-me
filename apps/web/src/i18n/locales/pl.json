@@ -39,9 +39,11 @@
     "backend": "Backend",
     "ops": "Ops i narzędzia",
     "closing": "Najpierw React, reszta w razie potrzeby.",
-    "projectsTitle": "Wybrane prace",
     "viewRepo": "Zobacz repozytorium",
-    "viewLive": "Zobacz na żywo",
+    "card": {
+      "eyebrow": "Case study",
+      "cta": "Zobacz monorepo"
+    },
     "projects": {
       "aboutMe": {
         "outcome": "Self-hosted portfolio fullstack, które projektuję, wdrażam i utrzymuję — SPA, API, Docker na Pi, tunnel i CI. Żeby udowodnić stack, nie wypełnić CV."
@@ -98,6 +100,21 @@
         }
       }
     }
+  },
+  "monorepo": {
+    "index": "Praca / Monorepo",
+    "back": "Wróć do prac",
+    "description": "Wszystko, co stoi za tą stroną, mieszka w jednym workspace pnpm + TypeScript: aplikacja React, którą właśnie czytasz, API w NestJS, współdzielone typy i infrastruktura, która buduje, wdraża i uruchamia to wszystko na Raspberry Pi w domu. Jedno repozytorium, jeden lockfile, jeden pipeline.",
+    "insideTitle": "Co jest w środku",
+    "workspaces": {
+      "web": "SPA w React, którą właśnie oglądasz: Vite, Tailwind, i18next w trzech językach i diagram architektury poniżej, zbudowany w React Flow.",
+      "api": "API w NestJS z health checkami i endpointem kontaktowym, oparte na PostgreSQL przez Prisma.",
+      "shared": "Typy i DTO w TypeScript współdzielone przez aplikację web i API, żeby obie strony zgadzały się co do kontraktu.",
+      "infra": "Docker Compose, nginx, konfiguracja Cloudflare Tunnel oraz skrypty deployu i backupu na Pi.",
+      "ci": "Bramki jakości dla pull requestów, Playwright na prawdziwym stacku Compose, buildy obrazów ARM64 i job deployu."
+    },
+    "architectureTitle": "Jak to działa",
+    "architectureIntro": "Od pusha do main do strony w Twojej przeglądarce: każda ramka poniżej to prawdziwy element wdrożenia."
   },
   "contact": {
     "title": "Kontakt",

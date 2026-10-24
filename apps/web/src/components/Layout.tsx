@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { Outlet } from "react-router";
+import { Outlet, ScrollRestoration } from "react-router";
 
 import { Footer } from "./Footer.js";
 import { Navbar } from "./Navbar.js";
@@ -25,6 +25,7 @@ export function Layout() {
         <Outlet />
       </main>
       <Footer />
+      <ScrollRestoration />
     </div>
   );
 }
