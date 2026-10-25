@@ -102,7 +102,7 @@ export function Monorepo() {
         id="architecture"
         index="03 / ARCHITECTURE"
         title={t("monorepo.architectureTitle")}
-        className="!pb-0"
+        className="!pb-16 lg:!pb-24"
       >
         <p className="mb-6 max-w-[68ch] text-ink-soft">{t("monorepo.architectureIntro")}</p>
         <ArchitectureGraph />

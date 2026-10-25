@@ -46,7 +46,7 @@
     },
     "projects": {
       "aboutMe": {
-        "outcome": "A self-hosted fullstack portfolio I design, ship, and operate — SPA, API, Docker on a Pi, tunnel, and CI. Built to prove the stack, not pad a resume."
+        "outcome": "A self-hosted fullstack portfolio I design, ship, and operate."
       }
     },
     "architecture": {

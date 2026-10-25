@@ -46,7 +46,7 @@
     },
     "projects": {
       "aboutMe": {
-        "outcome": "Um portefólio fullstack self-hosted que desenho, publico e opero — SPA, API, Docker num Pi, tunnel e CI. Feito para provar a stack, não para encher o CV."
+        "outcome": "Um portefólio fullstack self-hosted que desenho, publico e opero."
       }
     },
     "architecture": {
