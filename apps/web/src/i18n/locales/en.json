@@ -41,12 +41,16 @@
     "closing": "React first, adaptable to the rest.",
     "viewRepo": "View repo",
     "card": {
-      "eyebrow": "Case study",
-      "cta": "Explore the monorepo"
+      "eyebrow": "Case study"
     },
     "projects": {
       "aboutMe": {
-        "outcome": "A self-hosted fullstack portfolio I design, ship, and operate."
+        "outcome": "A self-hosted fullstack portfolio I design, ship, and operate.",
+        "cta": "Explore the monorepo"
+      },
+      "cvCheck": {
+        "outcome": "A local AI tool that checks my CV against a job posting and writes a tailored one-page PDF.",
+        "cta": "See how it works"
       }
     },
     "architecture": {
@@ -146,5 +150,44 @@
   "easterEgg": {
     "foundMe": "Oh wow! You clicked! That's nice, the fun fact about me is that I've worked as a videographer for 10 years! (since I was 16) making me have some experience with video editing and video making :P",
     "close": "Close"
+  },
+  "cvCheck": {
+    "index": "Work / cv-check",
+    "back": "Back to work",
+    "description": "Paste a job link and cv-check reads my latest CV, runs a local Cursor agent against the posting, and returns an Apply, Maybe apply, or Skip verdict. On a match it rewrites the CV using only facts already in it, fits it to one A4 page, and logs the application in my tracker. It runs as a CLI or as a small local web app, natively or in Docker.",
+    "flowTitle": "How it works",
+    "flow": {
+      "read": {
+        "title": "Read",
+        "body": "Finds the newest CV in my documents folder and fetches the job posting, or takes a pasted description for login-walled pages."
+      },
+      "match": {
+        "title": "Match",
+        "body": "A Cursor SDK agent compares the CV with the role and returns a verdict with reasons."
+      },
+      "tailor": {
+        "title": "Tailor",
+        "body": "On Apply or Maybe apply, it rewrites the summary, skills, and bullets, using only facts from the source CV."
+      },
+      "fit": {
+        "title": "Fit",
+        "body": "Headless Chrome measures the draft and prints it to a single A4 page. Any fact it wants to drop needs my approval first."
+      },
+      "log": {
+        "title": "Log",
+        "body": "The tailored PDF lands in a folder per job and a row is added to my tracker CSV. Duplicate URLs are caught."
+      }
+    },
+    "insideTitle": "What's inside",
+    "modules": {
+      "cli": "The terminal entry point: job URL in, report out, with flags for model, force, and pasted descriptions.",
+      "server": "A localhost-only HTTP server behind the web interface, streaming progress and asking for approvals.",
+      "agent": "Starts the local Cursor agent and parses its structured match report.",
+      "tailor": "Keeps the rewrite honest: no new facts, no location or work arrangement.",
+      "pdf": "Renders the CV as HTML and prints it with headless Chrome, scaling it to fill exactly one page.",
+      "tracker": "Reads and appends to the application tracker CSV and stops repeat checks.",
+      "web": "A single-file web UI: paste a link, watch progress, approve removals, open the PDF."
+    },
+    "honesty": "It never applies for me. The verdict stays honest even when I force a tailored CV."
   }
 }
