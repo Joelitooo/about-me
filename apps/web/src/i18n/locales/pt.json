@@ -41,12 +41,16 @@
     "closing": "React em primeiro, adaptável ao resto.",
     "viewRepo": "Ver repositório",
     "card": {
-      "eyebrow": "Caso de estudo",
-      "cta": "Explorar o monorepo"
+      "eyebrow": "Caso de estudo"
     },
     "projects": {
       "aboutMe": {
-        "outcome": "Um portefólio fullstack self-hosted que desenho, publico e opero."
+        "outcome": "Um portefólio fullstack self-hosted que desenho, publico e opero.",
+        "cta": "Explorar o monorepo"
+      },
+      "cvCheck": {
+        "outcome": "Uma ferramenta de IA local que compara o meu CV com uma oferta de emprego e gera um PDF adaptado de uma página.",
+        "cta": "Ver como funciona"
       }
     },
     "architecture": {
@@ -146,5 +150,44 @@
   "easterEgg": {
     "foundMe": "Oh wow! Clicaste! Que giro — o facto extra é que trabalhei como videógrafo durante 10 anos (desde os 16), por isso tenho alguma experiência em edição e criação de vídeo :P",
     "close": "Fechar"
+  },
+  "cvCheck": {
+    "index": "Trabalho / cv-check",
+    "back": "Voltar ao trabalho",
+    "description": "Colo o link de uma oferta e o cv-check lê o meu CV mais recente, corre um agente Cursor local sobre a oferta e devolve um veredicto: Apply, Maybe apply ou Skip. Quando há match, reescreve o CV usando só factos que já lá estão, encaixa-o numa página A4 e regista a candidatura no meu tracker. Corre como CLI ou como uma pequena app web local, nativamente ou em Docker.",
+    "flowTitle": "Como funciona",
+    "flow": {
+      "read": {
+        "title": "Ler",
+        "body": "Encontra o CV mais recente nos meus documentos e obtém a oferta, ou aceita uma descrição colada para páginas com login."
+      },
+      "match": {
+        "title": "Comparar",
+        "body": "Um agente do Cursor SDK compara o CV com a vaga e devolve um veredicto com razões."
+      },
+      "tailor": {
+        "title": "Adaptar",
+        "body": "Em Apply ou Maybe apply, reescreve o resumo, as competências e os pontos, só com factos do CV original."
+      },
+      "fit": {
+        "title": "Encaixar",
+        "body": "O Chrome headless mede o rascunho e imprime-o numa única página A4. Qualquer facto a remover precisa da minha aprovação."
+      },
+      "log": {
+        "title": "Registar",
+        "body": "O PDF fica numa pasta por vaga e é adicionada uma linha ao CSV do tracker. URLs repetidos são detetados."
+      }
+    },
+    "insideTitle": "O que tem lá dentro",
+    "modules": {
+      "cli": "O ponto de entrada no terminal: URL da vaga entra, relatório sai, com flags para modelo, forçar e descrições coladas.",
+      "server": "Um servidor HTTP só em localhost por trás da interface web, que transmite o progresso e pede aprovações.",
+      "agent": "Arranca o agente Cursor local e interpreta o relatório estruturado.",
+      "tailor": "Mantém a reescrita honesta: sem factos novos, sem localização nem modelo de trabalho.",
+      "pdf": "Gera o CV em HTML e imprime-o com Chrome headless, escalado para ocupar exatamente uma página.",
+      "tracker": "Lê e acrescenta ao CSV de candidaturas e impede verificações repetidas.",
+      "web": "Uma interface web num único ficheiro: colar o link, ver o progresso, aprovar remoções, abrir o PDF."
+    },
+    "honesty": "Nunca se candidata por mim. O veredicto mantém-se honesto mesmo quando forço um CV adaptado."
   }
 }

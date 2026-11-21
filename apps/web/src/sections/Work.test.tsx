@@ -30,6 +30,15 @@ describe("Work", () => {
     );
   });
 
+  it("shows the cv-check card linking to its page", () => {
+    renderWork();
+    expect(screen.getByRole("heading", { name: "cv-check" })).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: /see how it works/i })).toHaveAttribute(
+      "href",
+      "/cv-check",
+    );
+  });
+
   it("leaves the architecture graph to the monorepo page", () => {
     const { container } = renderWork();
     expect(container.querySelector(".react-flow")).toBeNull();

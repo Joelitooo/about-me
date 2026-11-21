@@ -41,12 +41,16 @@
     "closing": "Najpierw React, reszta w razie potrzeby.",
     "viewRepo": "Zobacz repozytorium",
     "card": {
-      "eyebrow": "Case study",
-      "cta": "Zobacz monorepo"
+      "eyebrow": "Case study"
     },
     "projects": {
       "aboutMe": {
-        "outcome": "Self-hosted portfolio fullstack, które projektuję, wdrażam i utrzymuję."
+        "outcome": "Self-hosted portfolio fullstack, które projektuję, wdrażam i utrzymuję.",
+        "cta": "Zobacz monorepo"
+      },
+      "cvCheck": {
+        "outcome": "Lokalne narzędzie AI, które porównuje moje CV z ofertą pracy i tworzy dopasowany jednostronicowy PDF.",
+        "cta": "Zobacz, jak działa"
       }
     },
     "architecture": {
@@ -146,5 +150,44 @@
   "easterEgg": {
     "foundMe": "O wow! Kliknąłeś! Super — ciekawostka o mnie: przez 10 lat (od kiedy miałem 16) pracowałem jako wideograf, więc mam trochę doświadczenia w montażu i kręceniu wideo :P",
     "close": "Zamknij"
+  },
+  "cvCheck": {
+    "index": "Praca / cv-check",
+    "back": "Wróć do prac",
+    "description": "Wklejam link do oferty, a cv-check czyta moje najnowsze CV, uruchamia lokalnego agenta Cursor na tej ofercie i zwraca werdykt: Apply, Maybe apply albo Skip. Przy dopasowaniu przepisuje CV, używając tylko faktów, które już w nim są, mieści je na jednej stronie A4 i zapisuje aplikację w moim trackerze. Działa jako CLI albo mała lokalna aplikacja web, natywnie lub w Dockerze.",
+    "flowTitle": "Jak to działa",
+    "flow": {
+      "read": {
+        "title": "Odczyt",
+        "body": "Znajduje najnowsze CV w moich dokumentach i pobiera ofertę, albo przyjmuje wklejony opis dla stron za logowaniem."
+      },
+      "match": {
+        "title": "Dopasowanie",
+        "body": "Agent Cursor SDK porównuje CV z rolą i zwraca werdykt z uzasadnieniem."
+      },
+      "tailor": {
+        "title": "Dopasowanie CV",
+        "body": "Przy Apply lub Maybe apply przepisuje podsumowanie, umiejętności i punkty, tylko na faktach z oryginalnego CV."
+      },
+      "fit": {
+        "title": "Jedna strona",
+        "body": "Headless Chrome mierzy szkic i drukuje go na jednej stronie A4. Każdy fakt do usunięcia wymaga mojej zgody."
+      },
+      "log": {
+        "title": "Zapis",
+        "body": "PDF trafia do folderu danej oferty, a w CSV trackera pojawia się nowy wiersz. Duplikaty URL są wykrywane."
+      }
+    },
+    "insideTitle": "Co jest w środku",
+    "modules": {
+      "cli": "Punkt wejścia w terminalu: URL oferty na wejściu, raport na wyjściu, z flagami dla modelu, wymuszenia i wklejonych opisów.",
+      "server": "Serwer HTTP tylko na localhost, obsługujący interfejs web, streamujący postęp i pytający o zgody.",
+      "agent": "Uruchamia lokalnego agenta Cursor i parsuje jego ustrukturyzowany raport.",
+      "tailor": "Pilnuje uczciwości: żadnych nowych faktów, bez lokalizacji i trybu pracy.",
+      "pdf": "Renderuje CV jako HTML i drukuje je przez headless Chrome, skalując do dokładnie jednej strony.",
+      "tracker": "Czyta i dopisuje do CSV trackera aplikacji oraz blokuje powtórne sprawdzenia.",
+      "web": "Jednoplikowy interfejs: wklej link, obserwuj postęp, zatwierdź usunięcia, otwórz PDF."
+    },
+    "honesty": "Nigdy nie aplikuje za mnie. Werdykt pozostaje uczciwy, nawet gdy wymuszam dopasowane CV."
   }
 }

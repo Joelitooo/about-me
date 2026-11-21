@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router";
 
 import { Layout } from "./components/Layout.js";
+import { CvCheck } from "./routes/CvCheck.js";
 import { Home } from "./routes/Home.js";
 import { Monorepo } from "./routes/Monorepo.js";
 
@@ -11,6 +12,7 @@ export const router = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       { path: "monorepo", element: <Monorepo /> },
+      { path: "cv-check", element: <CvCheck /> },
     ],
   },
 ]);
